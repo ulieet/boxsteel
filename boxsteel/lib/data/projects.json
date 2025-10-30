@@ -1,0 +1,63 @@
+[
+  {
+    "id": "city-bell",
+    "title": "Ampliación de Vivienda",
+    "location": "City Bell",
+    "client": "Particular",
+    "year": "2024",
+    "description": "Ampliación moderna de vivienda con estructura de steel frame, incluyendo pérgola y deck exterior. Diseño contemporáneo con revestimiento de ladrillo y grandes ventanales.",
+    "images": ["/proyectos/ampliacion.png", "/proyectos/ampliacion2.png"],
+    "category": "Residencial"
+    
+  },
+  {
+    "id": "alcaidia-batan",
+    "title": "Alcaidía Masculina y Femenina - 424 plazas",
+    "location": "Batán",
+    "client": "Dirección Provincial de Arquitectura BA",
+    "year": "2005",
+    "description": "En UTE con Ebcon SA y Ridel SA con una participación del 46%. Obra Civil de 10.000 m2 cubiertos, con Muro Perimetral de Hormigón armado de 6 metros de altura. 210 días de Plazo",
+    "images": ["/proyectos/interior.png","/proyectos/interior2.png" ],
+    "category": "Institucional"
+  },
+  {
+    "id": "rehabilitacion-unidad-30",
+    "title": "Rehabilitación Unidad Nº 30",
+    "location": "General Alvear",
+    "client": "Ministerio de Justicia BA",
+    "year": "2010",
+    "description": "Salidas de Emergencia mediante puerta de pánico y sistemas de esclusas. Intervención sobre 33 pabellones. Ejecución de nuevo patio para internos.",
+    "images": ["/proyectos/ej.png","/proyectos/ej2.png"],
+    "category": "Institucional"
+  },
+  {
+    "id": "vivienda-moderna",
+    "title": "Casa Moderna Steel Frame",
+    "location": "La Plata",
+    "client": "Particular",
+    "year": "2023",
+    "description": "Vivienda unifamiliar de 120m2 construida íntegramente en steel frame. Diseño minimalista con grandes ventanales y espacios abiertos.",
+    "images": ["/placeholder.svg?height=600&width=800"],
+    "category": "Residencial"
+  },
+  {
+    "id": "oficinas-comerciales",
+    "title": "Edificio de Oficinas Comerciales",
+    "location": "Buenos Aires",
+    "client": "Inversora Inmobiliaria SA",
+    "year": "2022",
+    "description": "Edificio de 3 plantas con estructura de steel frame, destinado a oficinas comerciales. Fachada moderna con revestimiento de paneles compuestos.",
+    "images": ["/placeholder.svg?height=600&width=800"],
+    "category": "Comercial"
+  },
+  {
+    "id": "escuela-primaria",
+    "title": "Escuela Primaria N° 45",
+    "location": "Berisso",
+    "client": "Ministerio de Educación BA",
+    "year": "2021",
+    "description": "Ampliación de escuela primaria con 6 aulas nuevas, biblioteca y comedor. Construcción en steel frame de 800m2.",
+    "images": ["/placeholder.svg?height=600&width=800"],
+    "category": "Educativo"
+  }
+]
