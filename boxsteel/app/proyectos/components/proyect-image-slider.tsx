@@ -9,14 +9,12 @@ interface Props {
   title: string
 }
 
-// Tomamos solo las primeras 3 imágenes como pediste
 const MAX_IMAGES_TO_SHOW = 3
-const SLIDE_INTERVAL_MS = 3000 // 3 segundos por imagen
+const SLIDE_INTERVAL_MS = 3000 
 
 export function ProjectImageSlider({ images, title }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0)
   
-  // Filtramos y limitamos la cantidad de imágenes
   const displayImages = images.filter(Boolean).slice(0, MAX_IMAGES_TO_SHOW)
 
   // Efecto para el cambio automático
@@ -29,11 +27,11 @@ export function ProjectImageSlider({ images, title }: Props) {
       )
     }, SLIDE_INTERVAL_MS)
 
-    return () => clearInterval(interval) // Limpiar el intervalo al desmontar
+    return () => clearInterval(interval) 
   }, [displayImages.length])
 
   return (
-    <div className="relative aspect-[16/10] overflow-hidden">
+    <div className="relative aspect-16/10 overflow-hidden">
       <AnimatePresence initial={false}>
         <motion.div
           key={currentIndex}
@@ -52,7 +50,6 @@ export function ProjectImageSlider({ images, title }: Props) {
         </motion.div>
       </AnimatePresence>
       
-      {/* Indicadores de puntos en la parte inferior */}
       {displayImages.length > 1 && (
         <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
           {displayImages.map((_, index) => (
@@ -66,8 +63,7 @@ export function ProjectImageSlider({ images, title }: Props) {
         </div>
       )}
 
-      {/* Gradiente sutil para que los puntos sean legibles */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+      <div className="absolute inset-0 from-black/50 via-black/10 to-transparent" />
     </div>
   )
 }

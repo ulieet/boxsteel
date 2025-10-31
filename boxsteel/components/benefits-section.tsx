@@ -50,7 +50,7 @@ export function BenefitsSection() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 items-center">
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden order-2 lg:order-1">
+          <div className="relative aspect-4/3 rounded-2xl overflow-hidden order-2 lg:order-1">
             <Image
               src="/images/steel-frame-facts.png"
               alt="Construcción con Steel Frame"
@@ -63,7 +63,7 @@ export function BenefitsSection() {
            ``
             <div className="space-y-4">
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
                   <span className="text-sm font-bold text-accent">1</span>
                 </div>
                 <div>
@@ -73,7 +73,7 @@ export function BenefitsSection() {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
                   <span className="text-sm font-bold text-accent">2</span>
                 </div>
                 <div>
@@ -83,7 +83,7 @@ export function BenefitsSection() {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
                   <span className="text-sm font-bold text-accent">3</span>
                 </div>
                 <div>
@@ -93,7 +93,7 @@ export function BenefitsSection() {
               </div>
 
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
                   <span className="text-sm font-bold text-accent">4</span>
                 </div>
                 <div>

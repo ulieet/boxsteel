@@ -1,6 +1,5 @@
 import { MapPin } from "lucide-react"
-// Ajusta según cómo exportes tu slider: default o named
-import {ProjectImageSlider} from "@/components/proyectos/proyect-image-slider" 
+import {ProjectImageSlider} from "@/app/proyectos/components/proyect-image-slider" 
 import projectsData from "@/lib/data/projects.json"
 
 interface Project {
@@ -15,13 +14,11 @@ interface Project {
 }
 
 export default function ProyectosPage() {
-  // Aseguramos el tipado de los datos importados
   const projects: Project[] = projectsData as Project[]
 
   return (
-    <div className="min-h-screen bg-neutral-700 mt-30">
+    <div className="min-h-screen bg-neutral-700 mt-18">
 
-      {/* SECCIÓN DE CABECERA */}
       <section className="py-16 md:py-24 relative overflow-hidden bg-neutral-600">
         <div className="absolute inset-0 opacity-5">
           <div
@@ -49,7 +46,6 @@ export default function ProyectosPage() {
         </div>
       </section>
 
-      {/* SECCIÓN DE GRILLA DE PROYECTOS */}
       <section className="py-12 pb-24 bg-neutral-900">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -60,10 +56,8 @@ export default function ProyectosPage() {
                 className="bg-neutral-800 rounded-lg overflow-hidden shadow-lg border border-neutral-700
                            group transition-shadow duration-300 hover:shadow-xl hover:shadow-[#1a9b9b]/10"
               >
-                {/* SLIDER DE IMAGEN */}
                 <ProjectImageSlider images={project.images} title={project.title} />
 
-                {/* CONTENIDO DE LA TARJETA */}
                 <div className="p-6">
                   <div className="flex items-center gap-2 text-[#1a9b9b] mb-3">
                     <MapPin className="w-4 h-4" />

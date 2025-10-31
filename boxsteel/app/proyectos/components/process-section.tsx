@@ -42,7 +42,7 @@ export function ProcessSection() {
           {steps.map((step, index) => (
             <div key={index} className="relative">
               {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-12 left-[60%] w-full h-[2px] bg-border" />
+                <div className="hidden lg:block absolute top-12 left-[60%] w-full h-2px bg-border" />
               )}
 
               <div className="relative bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-shadow">

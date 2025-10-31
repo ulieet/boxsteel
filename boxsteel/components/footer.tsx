@@ -28,27 +28,22 @@ export function Footer() {
             <h3 className="font-bold text-base mb-4">Navegación</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#proyectos" className="text-background/70 hover:text-background transition-colors">
+                <a href="/proyectos" className="text-background/70 hover:text-background transition-colors">
                   Proyectos
                 </a>
               </li>
               <li>
-                <a href="#beneficios" className="text-background/70 hover:text-background transition-colors">
+                <a href="/#beneficios" className="text-background/70 hover:text-background transition-colors">
                   Beneficios
                 </a>
               </li>
-              <li>
-                <a href="#proceso" className="text-background/70 hover:text-background transition-colors">
-                  Proceso
-                </a>
-              </li>
+              
             </ul>
           </div>
 
           <div>
             <h3 className="font-bold text-base mb-4">Contacto</h3>
             <ul className="space-y-2 text-sm">
-              <li className="text-background/70">WhatsApp: 2213147323</li>
               <li>
                 <a
                   href="https://wa.me/5492213147323"
