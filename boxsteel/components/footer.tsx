@@ -8,11 +8,11 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Image
-                src="/images/box-logo.png"
+                src="/images/box-logo2.png"
                 alt="Box Steel Frame"
                 width={40}
                 height={40}
-                className="w-10 h-10 brightness-0 invert"
+                className="w-10 h-10 "
               />
               <div className="flex flex-col">
                 <span className="font-bold text-lg">BOX</span>

@@ -19,7 +19,7 @@ export function ProjectImageSlider({ images, title }: Props) {
 
   // Efecto para el cambio automático
   useEffect(() => {
-    if (displayImages.length <= 1) return // No rotar si hay 1 o 0 imágenes
+    if (displayImages.length <= 1) return 
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>

@@ -39,7 +39,6 @@ export default function FeatureSection() {
                   : "lg:flex-row"
               } gap-8 lg:gap-16 items-center`}
             >
-              {/* Texto */}
               <div className="flex-1 space-y-6">
                 <div className="space-y-4">
                   <p className="uppercase text-sm font-semibold text-gray-500">
@@ -62,7 +61,6 @@ export default function FeatureSection() {
                 </div>
               </div>
 
-              {/* Imagen */}
               <div className="flex-1 w-full">
                 <div className="relative w-full h-64 md:h-96 overflow-hidden rounded-lg shadow-lg">
                   <Image

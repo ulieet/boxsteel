@@ -6,8 +6,8 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const imagenes = [
-  { src: "/images/box-logo.png", alt: "Logo Box Steel Frame" },
-  { src: "/images/construction-site.png", alt: "Construcción Steel Frame" },
+  { src: "/images/casa1.png", alt: "Logo Box Steel Frame" },
+  { src: "/images/casa2.png", alt: "Construcción Steel Frame" },
 ];
 
 export default function CarruselPrincipal() {

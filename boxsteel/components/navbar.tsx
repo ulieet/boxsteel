@@ -1,49 +1,43 @@
-"use client"; // 1. Convertimos a Cliente para manejar Clics y Refs
+"use client"; 
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react"; // 2. Importamos useRef para medir la navbar
-import { usePathname, useRouter } from "next/navigation"; // 3. Para saber en qué página estamos
+import { useRef } from "react"; 
+import { usePathname, useRouter } from "next/navigation"; 
 
 export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const headerRef = useRef<HTMLElement>(null); // 4. Ref para el header
+  const headerRef = useRef<HTMLElement>(null); 
 
-  // --- Función para el Scroll Suave ---
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault(); // Prevenimos la navegación brusca
+    e.preventDefault(); // Hice un prevent para prevenir la navegación brusca
 
-    // Parseamos el link que nos pasaron
     const url = new URL(href, window.location.origin);
-    const targetHash = url.hash;     // Ej: "#beneficios"
-    const targetPathname = url.pathname; // Ej: "/"
+    const targetHash = url.hash;    
+    const targetPathname = url.pathname; 
 
-    // CASO 1: El link es a OTRA página (ej: /proyectos)
     if (targetPathname !== pathname) {
-      router.push(href); // Navegamos con el router de Next
+      router.push(href); 
       return;
     }
 
-    // CASO 2: Es un link en la MISMA página (ej: /#beneficios y ya estoy en /)
     
-    // Si es un link sin hash (como "Inicio"), vamos al tope
     if (!targetHash || targetHash === "#top") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
-    const id = targetHash.substring(1); // "beneficios"
+    const id = targetHash.substring(1); 
     const elemento = document.getElementById(id);
     
-    // 5. AQUÍ ESTÁ EL ARREGLO
-    // Obtenemos la altura REAL de la navbar (fallback a 70px)
+  
     const navbarHeight = headerRef.current?.offsetHeight || 70;
 
     if (elemento) {
       const offsetTop = elemento.offsetTop;
       window.scrollTo({
-        top: offsetTop - navbarHeight, // Le restamos la altura de la navbar
+        top: offsetTop - navbarHeight, 
         behavior: "smooth",
       });
     }
@@ -62,11 +56,11 @@ export function Navbar() {
             className="flex items-center gap-2"
           >
             <Image
-              src="/images/box-logo.png"
+              src="/images/box-logo2.png"
               alt="Box Steel Frame"
               width={50}
               height={50}
-              className="w-12 h-12 rounded-lg"
+              className="w-12 h-10 rounded-lg"
             />
             <div className="flex flex-col">
               <span className="font-bold text-base lg:text-lg text-foreground hover:text-accent transition-colors">
