@@ -6,7 +6,10 @@
     "cliente": "Particular",
     "año": "2024",
     "descripcion": "Ampliación moderna de vivienda con estructura de steel frame, incluyendo pérgola y deck exterior. Diseño contemporáneo con revestimiento de ladrillo y grandes ventanales.",
-    "imagenes": ["/proyectos/ampliacion.png", "/proyectos/ampliacion2.png"],
+    "imagenes": [
+      "/proyectos/ampliacion.png",
+      "/proyectos/ampliacion2.png"
+    ],
     "categoria": "Residencial"
   },
   {
@@ -16,7 +19,10 @@
     "cliente": "Familia González",
     "año": "2023",
     "descripcion": "Rediseño completo de cocina con isla central, mobiliario de melamina de alta gama y mesadas de silestone. Integración de iluminación LED y optimización de espacios.",
-    "imagenes": ["/proyectos/ej.png", "/proyectos/ej2.png"],
+    "imagenes": [
+      "/proyectos/ej.png",
+      "/proyectos/ej2.png"
+    ],
     "categoria": "Interiores"
   },
   {
@@ -26,7 +32,10 @@
     "cliente": "Estudio Arq. Paz",
     "año": "2024",
     "descripcion": "Construcción de quincho de 60m2 en steel frame, con parrilla, baño y vestuario. Incluye deck de madera exterior y solárium atérmico para piscina.",
-    "imagenes": ["/proyectos/interior.png", "/proyectos/interior2.png"],
+    "imagenes": [
+      "/proyectos/interior.png",
+      "/proyectos/interior2.png"
+    ],
     "categoria": "Exteriores"
   },
   {
@@ -36,7 +45,10 @@
     "cliente": "WorkSpace LP",
     "año": "2023",
     "descripcion": "Acondicionamiento de 200m2 para oficinas de coworking. Creación de áreas comunes, salas de reuniones privadas con paneles acústicos y puestos de trabajo flexibles.",
-    "imagenes": ["/proyectos/oficina1.png", "/proyectos/oficina2.png"],
+    "imagenes": [
+      "/proyectos/oficina1.png",
+      "/proyectos/oficina2.png"
+    ],
     "categoria": "Comercial"
   },
   {
@@ -46,7 +58,10 @@
     "cliente": "Particular",
     "año": "2024",
     "descripcion": "Modernización completa de baño principal. Reemplazo de cañerías, instalación de porcelanato símil mármol, bañera exenta y grifería de alta gama.",
-    "imagenes": ["/proyectos/baño1.png", "/proyectos/baño2.png"],
+    "imagenes": [
+      "/proyectos/baño1.png",
+      "/proyectos/baño2.png"
+    ],
     "categoria": "Interiores"
   },
   {
@@ -56,7 +71,23 @@
     "cliente": "Particular",
     "año": "2023",
     "descripcion": "Ampliación de dormitorio principal sobre losa existente, utilizando steel frame para una construcción rápida y limpia. Incluye diseño de vestidor a medida.",
-    "imagenes": ["/proyectos/dormitorio1.png", "/proyectos/dormitorio2.png"],
+    "imagenes": [
+      "/proyectos/dormitorio1.png",
+      "/proyectos/dormitorio2.png"
+    ],
     "categoria": "Residencial"
+  },
+  {
+    "id": "jard",
+    "titulo": "jared santurio",
+    "ubicacion": "asdjiawd",
+    "cliente": "Jared santurio",
+    "año": "2025",
+    "descripcion": "sadisaida",
+    "imagenes": [
+      "/proyectos/placeholder.png",
+      "/proyectos/placeholder.png"
+    ],
+    "categoria": "Categoría"
   }
 ]

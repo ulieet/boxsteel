@@ -5,21 +5,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { EncabezadoAdmin } from "@/app/admin/components/header-admin"
 import { ListaSecciones } from "@/app/admin/components/lista-secciones"
 import { ConfiguracionSitio } from "@/app/admin/components/configuracion"
+
+// Importamos los nuevos componentes y datos
+import { ListaProyectos } from "@/app/admin/components/lista-proyectos"
 import featuresData from "@/lib/data/features.json"
+import projectsData from "@/lib/data/proyects.json"
+import type { FeatureData, Proyecto } from "@/app/admin/components/types"
 
-// --- Tipos ---
-
-type FeatureData = {
-  eyebrow: string
-  title: string
-  subtitle?: string
-  description: string[] | string
-  image: string
-  imageAlt: string
-  imagePosition: "left" | "right" // Tipo estricto
-}
-
-// Configuración inicial por defecto
+// --- Configuración inicial por defecto ---
 const defaultConfiguracion = {
   fuentePrincipal: "Inter",
   fuenteTitulos: "Inter",
@@ -29,36 +22,36 @@ const defaultConfiguracion = {
 // --- Componente Principal ---
 
 export default function PaginaAdmin() {
-  // Estado para evitar error de hidratación
   const [isClient, setIsClient] = useState(false)
+  const [hayCambios, setHayCambios] = useState(false)
 
-  // Estados de la aplicación
+  // Estados de datos
   const [secciones, setSecciones] = useState<FeatureData[]>(
-    // 👇 CORRECCIÓN: Usamos 'as' para forzar el tipo y evitar el error
     featuresData as FeatureData[]
   )
+  const [proyectos, setProyectos] = useState<Proyecto[]>(
+    projectsData as Proyecto[]
+  )
   const [configuracion, setConfiguracion] = useState(defaultConfiguracion)
-  const [hayCambios, setHayCambios] = useState(false)
 
   // --- Efectos ---
 
   // Carga inicial desde localStorage (si existe)
   useEffect(() => {
-    const guardadas = localStorage.getItem("cms_features")
-    const ajustes = localStorage.getItem("cms_settings")
-
     try {
-      if (guardadas) setSecciones(JSON.parse(guardadas))
-      if (ajustes) setConfiguracion(JSON.parse(ajustes))
+      const savedFeatures = localStorage.getItem("cms_features")
+      const savedProjects = localStorage.getItem("cms_projects")
+      const savedSettings = localStorage.getItem("cms_settings")
+
+      if (savedFeatures) setSecciones(JSON.parse(savedFeatures))
+      if (savedProjects) setProyectos(JSON.parse(savedProjects))
+      if (savedSettings) setConfiguracion(JSON.parse(savedSettings))
     } catch (e) {
       console.error("Error al parsear localStorage", e)
-      // Si hay error, borra los datos corruptos
-      localStorage.removeItem("cms_features")
-      localStorage.removeItem("cms_settings")
+      localStorage.clear() // Limpia datos corruptos
     }
   }, [])
 
-  // Efecto para marcar que el componente está montado en el cliente
   useEffect(() => {
     setIsClient(true)
   }, [])
@@ -72,39 +65,43 @@ export default function PaginaAdmin() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           secciones: secciones,
-          // Aquí también podrías guardar la configuración si lo necesitas
-          // configuracion: configuracion, 
+          proyectos: proyectos,
+          // configuracion: configuracion, // Puedes añadir esto si quieres guardarlo también
         }),
       })
 
       if (!respuesta.ok) {
-        throw new Error("Error al guardar en el servidor")
+        const errorData = await respuesta.json()
+        throw new Error(
+          errorData.error || "Error al guardar en el servidor"
+        )
       }
 
       // Guarda también en localStorage como respaldo
       localStorage.setItem("cms_features", JSON.stringify(secciones))
+      localStorage.setItem("cms_projects", JSON.stringify(proyectos))
       localStorage.setItem("cms_settings", JSON.stringify(configuracion))
 
       setHayCambios(false)
-      alert("Cambios guardados exitosamente en el servidor")
-    } catch (error) {
+      alert("¡Cambios guardados localmente!")
+    } catch (error: any) {
       console.error(error)
-      alert("Error al guardar los cambios.")
+      alert(`Error al guardar los cambios: ${error.message}`)
     }
   }
 
   const alExportar = () => {
     try {
-      const dataStr = JSON.stringify({ secciones, configuracion }, null, 2)
+      const dataStr = JSON.stringify({ secciones, proyectos, configuracion }, null, 2)
       const dataUri =
         "data:application/json;charset=utf-8," + encodeURIComponent(dataStr)
       const exportFileDefaultName = "configuracion-web.json"
       const linkElement = document.createElement("a")
       linkElement.setAttribute("href", dataUri)
       linkElement.setAttribute("download", exportFileDefaultName)
-      document.body.appendChild(linkElement) // Requerido en Firefox
+      document.body.appendChild(linkElement)
       linkElement.click()
-      document.body.removeChild(linkElement) // Limpieza
+      document.body.removeChild(linkElement)
     } catch (error) {
       console.error("Error al exportar:", error)
       alert("No se pudo exportar la configuración.")
@@ -112,29 +109,34 @@ export default function PaginaAdmin() {
   }
 
   const alImportar = () => {
-    // La lógica de importación requiere un input de archivo
-    alert("Función de importar no implementada")
-    // (Se necesitaría un <input type="file" /> y un FileReader)
+    // Esta función requeriría un <input type="file"> y un FileReader
+    // Por ahora, es un placeholder.
+    alert("Función de importar no implementada aún.")
   }
 
-  // --- Funciones de Edición ---
+  const cambiarConfiguracion = (campo: string, valor: string) => {
+    setConfiguracion((prev) => ({ ...prev, [campo]: valor }))
+    setHayCambios(true)
+  }
+
+  // --- Funciones de Edición (SECCIONES) ---
 
   const agregarSeccion = () => {
     const nueva: FeatureData = {
       eyebrow: "NUEVO",
       title: "Título de la sección",
       description: ["Descripción de la sección"],
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/placeholder.svg",
       imageAlt: "Imagen",
       imagePosition: "right",
     }
-    setSecciones([...secciones, nueva])
+    setSecciones((prev) => [...prev, nueva])
     setHayCambios(true)
   }
 
   const eliminarSeccion = (i: number) => {
-    if (confirm("¿Estás seguro de que quieres eliminar esta sección?")) {
-      setSecciones(secciones.filter((_, idx) => idx !== i))
+    if (confirm("¿Eliminar esta sección?")) {
+      setSecciones((prev) => prev.filter((_, idx) => idx !== i))
       setHayCambios(true)
     }
   }
@@ -144,9 +146,11 @@ export default function PaginaAdmin() {
     campo: keyof FeatureData,
     valor: any
   ) => {
-    const copia = [...secciones]
-    copia[i] = { ...copia[i], [campo]: valor }
-    setSecciones(copia)
+    setSecciones((prev) => {
+      const copia = [...prev]
+      copia[i] = { ...copia[i], [campo]: valor }
+      return copia
+    })
     setHayCambios(true)
   }
 
@@ -156,33 +160,81 @@ export default function PaginaAdmin() {
       (dir === "down" && i === secciones.length - 1)
     )
       return
-    
-    const nuevo = [...secciones]
-    const j = dir === "up" ? i - 1 : i + 1
-    // Intercambio de elementos
-    ;[nuevo[i], nuevo[j]] = [nuevo[j], nuevo[i]]
-    
-    setSecciones(nuevo)
+
+    setSecciones((prev) => {
+      const nuevo = [...prev]
+      const j = dir === "up" ? i - 1 : i + 1
+      ;[nuevo[i], nuevo[j]] = [nuevo[j], nuevo[i]] // Intercambio
+      return nuevo
+    })
     setHayCambios(true)
   }
 
-  const cambiarConfiguracion = (campo: string, valor: string) => {
-    setConfiguracion({ ...configuracion, [campo]: valor })
+  // --- Funciones de Edición (PROYECTOS) ---
+
+  const agregarProyecto = () => {
+    const nuevo: Proyecto = {
+      id: `proyecto-${Date.now()}`, // ID único simple
+      titulo: "Nuevo Proyecto",
+      ubicacion: "Ubicación",
+      cliente: "Cliente",
+      año: new Date().getFullYear().toString(),
+      descripcion: "Descripción del nuevo proyecto.",
+      imagenes: ["/proyectos/placeholder.png"],
+      categoria: "Categoría",
+    }
+    setProyectos((prev) => [...prev, nuevo])
+    setHayCambios(true)
+  }
+
+  const eliminarProyecto = (i: number) => {
+    if (confirm("¿Eliminar este proyecto?")) {
+      setProyectos((prev) => prev.filter((_, idx) => idx !== i))
+      setHayCambios(true)
+    }
+  }
+
+  const actualizarProyecto = (
+    i: number,
+    campo: keyof Proyecto,
+    valor: any
+  ) => {
+    setProyectos((prev) => {
+      const copia = [...prev]
+      copia[i] = { ...copia[i], [campo]: valor }
+      return copia
+    })
+    setHayCambios(true)
+  }
+
+  const moverProyecto = (i: number, dir: "up" | "down") => {
+    if (
+      (dir === "up" && i === 0) ||
+      (dir === "down" && i === proyectos.length - 1)
+    )
+      return
+
+    setProyectos((prev) => {
+      const nuevo = [...prev]
+      const j = dir === "up" ? i - 1 : i + 1
+      ;[nuevo[i], nuevo[j]] = [nuevo[j], nuevo[i]] // Intercambio
+      return nuevo
+    })
     setHayCambios(true)
   }
 
   // --- Renderizado ---
 
-  // No renderiza nada hasta que esté en el cliente para evitar hidratación
   if (!isClient) {
-    return null 
-    // Opcional: puedes poner un spinner/loader aquí
-    // return <div>Cargando editor...</div>
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Cargando editor...
+      </div>
+    )
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* 👇 CORRECCIÓN: Pasando todas las props requeridas */}
       <EncabezadoAdmin
         alGuardar={guardarCambios}
         hayCambios={hayCambios}
@@ -191,68 +243,36 @@ export default function PaginaAdmin() {
       />
 
       <main className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="secciones" className="space-y-6">
+        <Tabs defaultValue="proyectos" className="space-y-6">
           <TabsList>
-            <TabsTrigger value="secciones">Secciones</TabsTrigger>
+            <TabsTrigger value="secciones">Secciones (Landing)</TabsTrigger>
             <TabsTrigger value="proyectos">Proyectos</TabsTrigger>
             <TabsTrigger value="configuracion">Configuración</TabsTrigger>
           </TabsList>
 
+          {/* Tab de Secciones */}
           <TabsContent value="secciones">
-            {/* 👇 CORRECCIÓN: Pasando todas las props requeridas */}
             <ListaSecciones
               secciones={secciones}
               alAgregar={agregarSeccion}
               alEliminar={eliminarSeccion}
               alActualizar={actualizarSeccion}
               alMover={moverSeccion}
-              alGuardar={guardarCambios} // Estas props las pedía tu error
-              hayCambios={hayCambios}     // (quizás puedas quitarlas de ListaSecciones)
             />
           </TabsContent>
 
+          {/* Tab de Proyectos (AHORA FUNCIONAL) */}
           <TabsContent value="proyectos">
-            <div className="grid gap-6">
-              {secciones.map((p, i) => (
-                <div key={i} className="border p-4 bg-white rounded-xl shadow-sm">
-                  <h3 className="font-semibold text-lg mb-2">{p.title}</h3>
-                  <p className="text-sm text-gray-600 mb-2">
-                    {Array.isArray(p.description)
-                      ? p.description.join("\n")
-                      : p.description}
-                  </p>
-                  <div className="flex gap-2 mt-2">
-                    <button
-                      onClick={() => eliminarSeccion(i)}
-                      className="text-red-500 text-sm hover:underline"
-                    >
-                      Eliminar
-                    </button>
-                    <button
-                      onClick={() => moverSeccion(i, "up")}
-                      className="text-gray-500 text-sm hover:underline"
-                    >
-                      Subir
-                    </button>
-                    <button
-                      onClick={() => moverSeccion(i, "down")}
-                      className="text-gray-500 text-sm hover:underline"
-                    >
-                      Bajar
-                    </button>
-                  </div>
-                </div>
-              ))}
-
-              <button
-                onClick={agregarSeccion}
-                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
-              >
-                + Agregar Proyecto
-              </button>
-            </div>
+            <ListaProyectos
+              proyectos={proyectos}
+              alAgregar={agregarProyecto}
+              alEliminar={eliminarProyecto}
+              alActualizar={actualizarProyecto}
+              alMover={moverProyecto}
+            />
           </TabsContent>
 
+          {/* Tab de Configuración */}
           <TabsContent value="configuracion">
             <ConfiguracionSitio
               configuracion={configuracion}
