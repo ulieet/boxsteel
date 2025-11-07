@@ -4,8 +4,8 @@ import { MessageCircle } from "lucide-react"
 
 export function CTASection() {
   return (
-    <section className="py-16 lg:py-24 bg-muted/30" id="contacto">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="py-16 lg:py-10 bg-muted/30" id="contacto">
+      <div className="container mx-auto px-4 lg:px-8 mb-50">
         <div className="relative bg-accent rounded-2xl lg:rounded-3xl overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <Image src="/images/house-keys.png" alt="Background" fill className="object-cover" />

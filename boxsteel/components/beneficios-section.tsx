@@ -46,7 +46,7 @@ const datosExtra = {
 
 export function SeccionBeneficios() {
   return (
-    <section id="beneficios" className="py-16 md:py-24 bg-muted/30">
+    <section id="beneficios" className="py-10 md:py-10 bg-muted/30 ">
       <div className="container mx-auto px-4 lg:px-8">
         
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">

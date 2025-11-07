@@ -17,7 +17,6 @@ export function ProjectImageSlider({ images, title }: Props) {
   
   const displayImages = images.filter(Boolean).slice(0, MAX_IMAGES_TO_SHOW)
 
-  // Efecto para el cambio automático
   useEffect(() => {
     if (displayImages.length <= 1) return 
 
