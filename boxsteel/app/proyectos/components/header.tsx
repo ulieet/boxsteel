@@ -13,8 +13,10 @@ export default function ProyectosHeader() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl">
           <div className="inline-block mb-6">
-            <div className="bg-[#1a9b9b] px-8 py-3 transform -skew-x-6">
-              <h1 className="text-4xl md:text-6xl font-bold text-white transform skew-x-6">
+            {/* --- DIV MODIFICADO --- */}
+            <div className="bg-accent px-8 py-3 transform -skew-x-6">
+              {/* --- H1 MODIFICADO --- */}
+              <h1 className="text-4xl md:text-6xl font-bold text-accent-foreground transform skew-x-6">
                 NUESTROS PROYECTOS
               </h1>
             </div>

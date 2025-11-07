@@ -85,6 +85,17 @@ export function TarjetaSeccion({
           />
         </div>
 
+        {/* --- CAMBIO: ID/Orden visible y deshabilitado --- */}
+        <div className="space-y-2">
+          <Label>Orden (no editable)</Label>
+          <Input
+            value={`# ${indice + 1}`}
+            readOnly
+            disabled
+            className="text-gray-500"
+          />
+        </div>
+        
         <div className="space-y-2">
           <Label>Posición de Imagen</Label>
           <Select
@@ -101,6 +112,15 @@ export function TarjetaSeccion({
               <SelectItem value="right">Derecha</SelectItem>
             </SelectContent>
           </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label>Texto Alternativo (Alt Text)</Label>
+          <Input
+            value={seccion.imageAlt}
+            onChange={(e) => alActualizar(indice, "imageAlt", e.target.value)}
+            placeholder="Equipos de construcción"
+          />
         </div>
 
         <div className="space-y-2 md:col-span-2">
@@ -137,22 +157,13 @@ export function TarjetaSeccion({
         </div>
 
         {/* --- Selector de Archivo --- */}
-        <div className="space-y-2">
+        <div className="space-y-2 md:col-span-2">
           <Label>Imagen de la Sección</Label>
           <Input
             type="file"
             accept="image/*"
             className="file:text-sm file:font-medium"
             onChange={handleImageUpload}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label>Texto Alternativo (Alt Text)</Label>
-          <Input
-            value={seccion.imageAlt}
-            onChange={(e) => alActualizar(indice, "imageAlt", e.target.value)}
-            placeholder="Equipos de construcción"
           />
         </div>
       </div>

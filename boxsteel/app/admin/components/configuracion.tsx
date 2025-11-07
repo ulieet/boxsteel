@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { ConfiguracionSitioData } from "./types"
+import { Button } from "@/components/ui/button"
+import { RotateCcw } from "lucide-react" 
 
 interface ConfiguracionSitioProps {
   configuracion: ConfiguracionSitioData
@@ -18,15 +20,29 @@ interface ConfiguracionSitioProps {
     campo: keyof ConfiguracionSitioData,
     valor: string | boolean
   ) => void
+  alRestablecer: () => void // <-- Nueva prop
 }
 
 export function ConfiguracionSitio({
   configuracion,
   alCambiar,
+  alRestablecer, // <-- Nueva prop
 }: ConfiguracionSitioProps) {
   return (
     <Card className="p-6 space-y-6 max-w-2xl mx-auto">
-      <h2 className="text-xl font-semibold mb-6">Configuración General del Sitio</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-semibold">Configuración General del Sitio</h2>
+        {/* --- NUEVO BOTÓN --- */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={alRestablecer}
+          className="gap-2"
+        >
+          <RotateCcw className="h-4 w-4" />
+          Restablecer
+        </Button>
+      </div>
 
       {/* Selector de Fuente Principal */}
       <div className="space-y-2">

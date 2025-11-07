@@ -4,17 +4,17 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import { TarjetaProyecto } from "./card-proyecto"
-import { ModalProyecto } from "./modal-proyecto" // Importamos el modal
+import { ModalProyecto } from "./modal-proyecto" 
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
-} from "@/components/ui/dialog" // Importamos el dialog
+} from "@/components/ui/dialog" 
 import type { Proyecto } from "./types"
 
 interface ListaProyectosProps {
   proyectos: Proyecto[]
-  onProyectoAgregado: (nuevoProyecto: Proyecto) => void // Cambiamos el nombre de la prop
+  onProyectoAgregado: (nuevoProyecto: Proyecto) => void 
   alEliminar: (indice: number) => void
   alActualizar: (indice: number, campo: keyof Proyecto, valor: any) => void
   alMover: (indice: number, direccion: "up" | "down") => void
@@ -31,7 +31,7 @@ export function ListaProyectos({
 
   const handleGuardarModal = (nuevoProyecto: Proyecto) => {
     onProyectoAgregado(nuevoProyecto)
-    setIsModalOpen(false) // Cierra el modal al guardar
+    setIsModalOpen(false) 
   }
 
   return (
@@ -40,19 +40,18 @@ export function ListaProyectos({
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">Gestionar Proyectos</h2>
           <DialogTrigger asChild>
-            <Button className="gap-2 bg-teal-600 hover:bg-teal-700">
+            {/* --- BOTÓN MODIFICADO --- */}
+            <Button className="gap-2 bg-accent hover:bg-accent/90 text-accent-foreground">
               <Plus className="h-4 w-4" /> Agregar Proyecto
             </Button>
           </DialogTrigger>
         </div>
 
-        {/* El contenido del Modal se renderiza aquí (en un portal) */}
         <DialogContent className="max-w-4xl">
           <ModalProyecto onGuardar={handleGuardarModal} />
         </DialogContent>
       </Dialog>
 
-      {/* La lista de proyectos existentes */}
       <div className="space-y-4">
         {proyectos.map((p, i) => (
           <TarjetaProyecto

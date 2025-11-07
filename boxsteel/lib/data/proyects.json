@@ -1,18 +1,5 @@
 [
   {
-    "id": "jared-santurio",
-    "titulo": "jared santurio",
-    "ubicacion": "9 de julio",
-    "cliente": "Elñóñi",
-    "año": "2025",
-    "descripcion": "jared sntu",
-    "imagenes": [
-      "/uploads/img-1762550325481-648858680.jpeg",
-      "/uploads/img-1762550325482-582579133.jpeg"
-    ],
-    "categoria": "9 de julio"
-  },
-  {
     "id": "city-bell",
     "titulo": "Ampliación de Vivienda",
     "ubicacion": "City Bell",
@@ -89,18 +76,5 @@
       "/proyectos/dormitorio2.png"
     ],
     "categoria": "Residencial"
-  },
-  {
-    "id": "jard",
-    "titulo": "jared santurio",
-    "ubicacion": "asdjiawd",
-    "cliente": "Jared santurio",
-    "año": "2025",
-    "descripcion": "sadisaida",
-    "imagenes": [
-      "/proyectos/placeholder.png",
-      "/proyectos/placeholder.png"
-    ],
-    "categoria": "Categoría"
   }
 ]

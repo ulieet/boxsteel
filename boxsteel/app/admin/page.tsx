@@ -21,11 +21,11 @@ import type {
 } from "@/app/admin/components/types"
 
 // --- Configuración inicial por defecto ---
+// IMPORTANTE: Definido fuera del componente para que sea una constante de referencia
 const defaultConfiguracion: ConfiguracionSitioData = {
-  fuentePrincipal: configData.fuentePrincipal || "Inter",
-  fuenteTitulos: configData.fuenteTitulos || "Inter",
-  colorAcento: configData.colorAcento || "#14b8a6",
-  theme: configData.theme || "system",
+  fuentePrincipal: "Inter",
+  fuenteTitulos: "Inter",
+  colorAcento: "#14b8a6", // <-- CORREGIDO al color original
 }
 
 export default function PaginaAdmin() {
@@ -42,7 +42,6 @@ export default function PaginaAdmin() {
   useEffect(() => {
     // Carga inicial de datos JSON y localStorage
     try {
-      // Damos prioridad a localStorage por si hay cambios sin guardar
       const savedFeatures = localStorage.getItem("cms_features")
       const savedProjects = localStorage.getItem("cms_projects")
       const savedSettings = localStorage.getItem("cms_settings")
@@ -53,8 +52,13 @@ export default function PaginaAdmin() {
       setProyectos(
         savedProjects ? JSON.parse(savedProjects) : (projectsData as Proyecto[])
       )
+      
+      // Combinamos el default del código con el del JSON
+      const jsonConfig = configData || {};
+      const initialState = { ...defaultConfiguracion, ...jsonConfig }; 
+      
       setConfiguracion(
-        savedSettings ? JSON.parse(savedSettings) : defaultConfiguracion
+        savedSettings ? JSON.parse(savedSettings) : initialState // LocalStorage (cambios sin guardar) tiene prioridad
       )
 
     } catch (e) {
@@ -62,7 +66,8 @@ export default function PaginaAdmin() {
       // Fallback a los datos de los archivos JSON importados
       setSecciones(featuresData as FeatureData[])
       setProyectos(projectsData as Proyecto[])
-      setConfiguracion(defaultConfiguracion)
+      // Combinamos el default del código con el del JSON
+      setConfiguracion({ ...defaultConfiguracion, ...(configData || {}) })
     }
     
     setIsClient(true)
@@ -138,6 +143,13 @@ export default function PaginaAdmin() {
     setHayCambios(true)
   }
 
+  const alRestablecer = () => {
+    if (confirm("¿Restablecer la configuración a los valores por defecto?")) {
+      setConfiguracion(defaultConfiguracion) // <-- Usa la constante corregida
+      setHayCambios(true)
+    }
+  }
+
   // --- Funciones de Edición (SECCIONES) ---
 
   const agregarSeccion = () => {
@@ -188,7 +200,6 @@ export default function PaginaAdmin() {
   // --- Funciones de Edición (PROYECTOS) ---
 
   const handleAgregarProyecto = (nuevoProyecto: Proyecto) => {
-    // Agregamos el nuevo proyecto al PRINCIPIO de la lista
     setProyectos((prev) => [nuevoProyecto, ...prev])
     setHayCambios(true)
   }
@@ -276,6 +287,7 @@ export default function PaginaAdmin() {
             <ConfiguracionSitio
               configuracion={configuracion}
               alCambiar={cambiarConfiguracion}
+              alRestablecer={alRestablecer} 
             />
           </TabsContent>
         </Tabs>

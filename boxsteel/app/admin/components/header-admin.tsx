@@ -7,7 +7,7 @@ import { Save, Upload, Download } from "lucide-react"
 interface EncabezadoAdminProps {
   alGuardar: () => void
   alExportar: () => void
-  alImportar: () => void // Preparado para cuando lo implementes
+  alImportar: () => void 
   hayCambios: boolean
 }
 
@@ -18,12 +18,9 @@ export function EncabezadoAdmin({
   hayCambios,
 }: EncabezadoAdminProps) {
   
-  // Manejador para el input de archivo oculto
   const fileInputRef = React.useRef<HTMLInputElement>(null)
 
   const handleImportClick = () => {
-    // Simulado, ya que no pasaste la función de importación real
-    // fileInputRef.current?.click()
     alImportar()
   }
 
@@ -35,7 +32,6 @@ export function EncabezadoAdmin({
         </div>
 
         <div className="flex gap-2">
-          {/* Botón de Importar (funcionalidad oculta) */}
           <Button
             variant="outline"
             className="gap-2"
@@ -43,15 +39,8 @@ export function EncabezadoAdmin({
           >
             <Upload className="h-4 w-4" /> Importar
           </Button>
-          {/* <input
-            type="file"
-            ref={fileInputRef}
-            onChange={alImportar} // 'alImportar' debería ser un (e: ChangeEvent) => void
-            className="hidden"
-            accept="application/json"
-          /> */}
+          {/* <input ... /> */}
 
-          {/* Botón de Exportar */}
           <Button
             variant="outline"
             className="gap-2"
@@ -60,11 +49,11 @@ export function EncabezadoAdmin({
             <Download className="h-4 w-4" /> Exportar JSON
           </Button>
           
-          {/* Botón de Guardar */}
+          {/* --- BOTÓN MODIFICADO --- */}
           <Button
             onClick={alGuardar}
             disabled={!hayCambios}
-            className="gap-2 bg-teal-600 hover:bg-teal-700"
+            className="gap-2 bg-accent hover:bg-accent/90 text-accent-foreground"
           >
             <Save className="h-4 w-4" />
             {hayCambios ? "Guardar Cambios" : "Guardado"}

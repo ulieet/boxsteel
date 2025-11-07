@@ -15,7 +15,7 @@ export interface Proyecto {
   cliente: string
   año: string
   descripcion: string
-  imagenes: string[] // Array de strings base64 (data:image/...) o URLs
+  imagenes: string[] 
   categoria: string
 }
 
@@ -23,5 +23,4 @@ export interface ConfiguracionSitioData {
   fuentePrincipal: string
   fuenteTitulos: string
   colorAcento: string
-  theme: "light" | "dark" | "system"
 }
