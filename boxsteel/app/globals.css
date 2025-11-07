@@ -75,7 +75,6 @@
   }
 }
 
-/* Evita que Radix agregue padding-right al body */
 body[data-scroll-locked] {
   padding-right: 0 !important;
 }

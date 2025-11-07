@@ -2,7 +2,6 @@
 
 import { Card } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -10,14 +9,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
+import { ConfiguracionSitioData } from "./types"
 
 interface ConfiguracionSitioProps {
-  configuracion: {
-    fuentePrincipal: string
-    fuenteTitulos: string
-    colorAcento: string
-  }
-  alCambiar: (campo: string, valor: string) => void
+  configuracion: ConfiguracionSitioData
+  alCambiar: (
+    campo: keyof ConfiguracionSitioData,
+    valor: string | boolean
+  ) => void
 }
 
 export function ConfiguracionSitio({
@@ -25,16 +25,18 @@ export function ConfiguracionSitio({
   alCambiar,
 }: ConfiguracionSitioProps) {
   return (
-    <Card className="p-6 space-y-6">
-      <h2 className="text-xl font-semibold mb-6">Configuración del Sitio</h2>
+    <Card className="p-6 space-y-6 max-w-2xl mx-auto">
+      <h2 className="text-xl font-semibold mb-6">Configuración General del Sitio</h2>
+
+      {/* Selector de Fuente Principal */}
       <div className="space-y-2">
-        <Label>Fuente Principal</Label>
+        <Label>Fuente Principal (Textos)</Label>
         <Select
           value={configuracion.fuentePrincipal}
           onValueChange={(valor) => alCambiar("fuentePrincipal", valor)}
         >
           <SelectTrigger>
-            <SelectValue />
+            <SelectValue placeholder="Selecciona una fuente" />
           </SelectTrigger>
           <SelectContent
             className="z-50 bg-white text-black border border-gray-200 shadow-md dark:bg-gray-800 dark:text-white"
@@ -50,14 +52,15 @@ export function ConfiguracionSitio({
         </Select>
       </div>
 
+      {/* Selector de Fuente de Títulos */}
       <div className="space-y-2">
-        <Label>Fuente de Títulos</Label>
+        <Label>Fuente de Títulos (H1, H2, H3)</Label>
         <Select
           value={configuracion.fuenteTitulos}
           onValueChange={(valor) => alCambiar("fuenteTitulos", valor)}
         >
           <SelectTrigger>
-            <SelectValue />
+            <SelectValue placeholder="Selecciona una fuente" />
           </SelectTrigger>
           <SelectContent
             className="z-50 bg-white text-black border border-gray-200 shadow-md dark:bg-gray-800 dark:text-white"
@@ -73,25 +76,27 @@ export function ConfiguracionSitio({
         </Select>
       </div>
 
+      {/* Selector de Color de Acento */}
       <div className="space-y-2">
-        <Label>Color de Acento</Label>
+        <Label>Color de Acento (Botones, Links)</Label>
         <div className="flex gap-2">
           <Input
             type="color"
             value={configuracion.colorAcento}
             onChange={(e) => alCambiar("colorAcento", e.target.value)}
-            className="w-20 h-10 cursor-pointer"
+            className="w-20 h-10 cursor-pointer p-1"
           />
           <Input
             type="text"
             value={configuracion.colorAcento}
             onChange={(e) => alCambiar("colorAcento", e.target.value)}
+            placeholder="#14b8a6"
           />
         </div>
       </div>
 
       <p className="text-sm text-gray-600 border-t pt-4 dark:text-gray-400">
-        Los cambios de fuente y color se aplicarán tras guardar y recargar la página.
+        Los cambios se aplicarán en todo el sitio después de "Guardar".
       </p>
     </Card>
   )

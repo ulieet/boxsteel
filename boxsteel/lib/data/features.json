@@ -1,5 +1,15 @@
 [
   {
+    "eyebrow": "NUEVO",
+    "title": "Título de la sección",
+    "description": [
+      "Descripción de la sección"
+    ],
+    "image": "/uploads/img-1762550325480-792014838.jpeg",
+    "imageAlt": "Imagen",
+    "imagePosition": "left"
+  },
+  {
     "eyebrow": "EQUIPOS PROPIOS",
     "title": "Disponibilidad en cualquier etapa del proyecto",
     "subtitle": "Siempre listos para tu obra",

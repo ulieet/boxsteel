@@ -6,17 +6,13 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Trash2, ArrowUp, ArrowDown, Plus, X } from "lucide-react"
-import type { Proyecto } from "./types" // Importamos el tipo
+import type { Proyecto } from "./types"
 
 interface TarjetaProyectoProps {
   proyecto: Proyecto
   indice: number
   total: number
-  alActualizar: (
-    indice: number,
-    campo: keyof Proyecto,
-    valor: any
-  ) => void
+  alActualizar: (indice: number, campo: keyof Proyecto, valor: any) => void
   alEliminar: (indice: number) => void
   alMover: (indice: number, direccion: "up" | "down") => void
 }
@@ -29,12 +25,9 @@ export function TarjetaProyecto({
   alEliminar,
   alMover,
 }: TarjetaProyectoProps) {
-  
-  // --- Funciones para manejar el array de imágenes ---
 
   const agregarImagen = () => {
-    // Agregamos una ruta de imagen vacía o un placeholder
-    const nuevasImagenes = [...proyecto.imagenes, "/proyectos/placeholder.png"]
+    const nuevasImagenes = [...proyecto.imagenes, ""] // Añadir slot vacío
     alActualizar(indice, "imagenes", nuevasImagenes)
   }
 
@@ -43,13 +36,21 @@ export function TarjetaProyecto({
     alActualizar(indice, "imagenes", nuevasImagenes)
   }
 
-  const actualizarImagen = (imgIndex: number, valor: string) => {
-    const nuevasImagenes = [...proyecto.imagenes]
-    nuevasImagenes[imgIndex] = valor
-    alActualizar(indice, "imagenes", nuevasImagenes)
+  const handleImageUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    imgIndex: number
+  ) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const nuevasImagenes = [...proyecto.imagenes]
+        nuevasImagenes[imgIndex] = reader.result as string
+        alActualizar(indice, "imagenes", nuevasImagenes)
+      }
+      reader.readAsDataURL(file)
+    }
   }
-
-  // --- Renderizado ---
 
   return (
     <Card className="p-6">
@@ -84,16 +85,14 @@ export function TarjetaProyecto({
         {/* Columna Izquierda */}
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label>ID (único, sin espacios)</Label>
+            <Label>ID (auto-generado: {proyecto.id})</Label>
             <Input
               value={proyecto.id}
-              onChange={(e) =>
-                alActualizar(indice, "id", e.target.value.toLowerCase().replace(/\s+/g, '-'))
-              }
-              placeholder="ej: mi-nuevo-proyecto"
+              readOnly
+              disabled
+              className="text-gray-500"
             />
           </div>
-
           <div className="space-y-2">
             <Label>Título</Label>
             <Input
@@ -102,7 +101,6 @@ export function TarjetaProyecto({
               placeholder="Ampliación de Vivienda"
             />
           </div>
-
           <div className="space-y-2">
             <Label>Ubicación</Label>
             <Input
@@ -113,7 +111,6 @@ export function TarjetaProyecto({
               placeholder="City Bell"
             />
           </div>
-
           <div className="space-y-2">
             <Label>Cliente</Label>
             <Input
@@ -124,7 +121,6 @@ export function TarjetaProyecto({
               placeholder="Particular"
             />
           </div>
-
           <div className="space-y-2">
             <Label>Año</Label>
             <Input
@@ -133,7 +129,6 @@ export function TarjetaProyecto({
               placeholder="2024"
             />
           </div>
-
           <div className="space-y-2">
             <Label>Categoría</Label>
             <Input
@@ -162,20 +157,27 @@ export function TarjetaProyecto({
 
           {/* Gestión de Imágenes */}
           <div className="space-y-2">
-            <Label>Imágenes (rutas del proyecto, ej: /proyectos/img.png)</Label>
-            <div className="space-y-2">
-              {proyecto.imagenes.map((img, imgIndex) => (
-                <div key={imgIndex} className="flex gap-2">
-                  <Input
-                    value={img}
-                    onChange={(e) =>
-                      actualizarImagen(imgIndex, e.target.value)
-                    }
-                    placeholder="/proyectos/imagen.png"
+            <Label>Imágenes</Label>
+            <div className="space-y-4">
+              {proyecto.imagenes.map((imgSrc, imgIndex) => (
+                <div key={imgIndex} className="flex items-end gap-2">
+                  <img
+                    src={imgSrc || "/placeholder.svg"}
+                    alt={`Preview ${imgIndex + 1}`}
+                    className="w-20 h-20 object-cover rounded-md border"
                   />
+                  <div className="flex-1 space-y-2">
+                    <Label className="text-xs">Imagen {imgIndex + 1}</Label>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      className="file:text-xs"
+                      onChange={(e) => handleImageUpload(e, imgIndex)}
+                    />
+                  </div>
                   <Button
                     variant="outline"
-                    size="sm"
+                    size="icon"
                     onClick={() => eliminarImagen(imgIndex)}
                     aria-label="Eliminar imagen"
                   >
@@ -191,7 +193,7 @@ export function TarjetaProyecto({
               className="mt-2 gap-2"
             >
               <Plus className="h-4 w-4" />
-              Añadir Imagen
+              Añadir Slot de Imagen
             </Button>
           </div>
         </div>

@@ -5,54 +5,66 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { EncabezadoAdmin } from "@/app/admin/components/header-admin"
 import { ListaSecciones } from "@/app/admin/components/lista-secciones"
 import { ConfiguracionSitio } from "@/app/admin/components/configuracion"
-
-// Importamos los nuevos componentes y datos
 import { ListaProyectos } from "@/app/admin/components/lista-proyectos"
+
+// Importar datos JSON
 import featuresData from "@/lib/data/features.json"
 import projectsData from "@/lib/data/proyects.json"
-import type { FeatureData, Proyecto } from "@/app/admin/components/types"
+// Usamos una importación 'require' para config.json para evitar problemas de cache
+const configData = require("@/lib/data/config.json") 
+
+// Importar tipos
+import type {
+  FeatureData,
+  Proyecto,
+  ConfiguracionSitioData,
+} from "@/app/admin/components/types"
 
 // --- Configuración inicial por defecto ---
-const defaultConfiguracion = {
-  fuentePrincipal: "Inter",
-  fuenteTitulos: "Inter",
-  colorAcento: "#14b8a6",
+const defaultConfiguracion: ConfiguracionSitioData = {
+  fuentePrincipal: configData.fuentePrincipal || "Inter",
+  fuenteTitulos: configData.fuenteTitulos || "Inter",
+  colorAcento: configData.colorAcento || "#14b8a6",
+  theme: configData.theme || "system",
 }
-
-// --- Componente Principal ---
 
 export default function PaginaAdmin() {
   const [isClient, setIsClient] = useState(false)
   const [hayCambios, setHayCambios] = useState(false)
 
   // Estados de datos
-  const [secciones, setSecciones] = useState<FeatureData[]>(
-    featuresData as FeatureData[]
-  )
-  const [proyectos, setProyectos] = useState<Proyecto[]>(
-    projectsData as Proyecto[]
-  )
-  const [configuracion, setConfiguracion] = useState(defaultConfiguracion)
+  const [secciones, setSecciones] = useState<FeatureData[]>([])
+  const [proyectos, setProyectos] = useState<Proyecto[]>([])
+  const [configuracion, setConfiguracion] =
+    useState<ConfiguracionSitioData>(defaultConfiguracion)
 
   // --- Efectos ---
-
-  // Carga inicial desde localStorage (si existe)
   useEffect(() => {
+    // Carga inicial de datos JSON y localStorage
     try {
+      // Damos prioridad a localStorage por si hay cambios sin guardar
       const savedFeatures = localStorage.getItem("cms_features")
       const savedProjects = localStorage.getItem("cms_projects")
       const savedSettings = localStorage.getItem("cms_settings")
 
-      if (savedFeatures) setSecciones(JSON.parse(savedFeatures))
-      if (savedProjects) setProyectos(JSON.parse(savedProjects))
-      if (savedSettings) setConfiguracion(JSON.parse(savedSettings))
-    } catch (e) {
-      console.error("Error al parsear localStorage", e)
-      localStorage.clear() // Limpia datos corruptos
-    }
-  }, [])
+      setSecciones(
+        savedFeatures ? JSON.parse(savedFeatures) : (featuresData as FeatureData[])
+      )
+      setProyectos(
+        savedProjects ? JSON.parse(savedProjects) : (projectsData as Proyecto[])
+      )
+      setConfiguracion(
+        savedSettings ? JSON.parse(savedSettings) : defaultConfiguracion
+      )
 
-  useEffect(() => {
+    } catch (e) {
+      console.error("Error al parsear localStorage, usando datos de JSON:", e)
+      // Fallback a los datos de los archivos JSON importados
+      setSecciones(featuresData as FeatureData[])
+      setProyectos(projectsData as Proyecto[])
+      setConfiguracion(defaultConfiguracion)
+    }
+    
     setIsClient(true)
   }, [])
 
@@ -66,7 +78,7 @@ export default function PaginaAdmin() {
         body: JSON.stringify({
           secciones: secciones,
           proyectos: proyectos,
-          // configuracion: configuracion, // Puedes añadir esto si quieres guardarlo también
+          configuracion: configuracion,
         }),
       })
 
@@ -77,13 +89,15 @@ export default function PaginaAdmin() {
         )
       }
 
-      // Guarda también en localStorage como respaldo
-      localStorage.setItem("cms_features", JSON.stringify(secciones))
-      localStorage.setItem("cms_projects", JSON.stringify(proyectos))
-      localStorage.setItem("cms_settings", JSON.stringify(configuracion))
+      // Limpiamos localStorage después de guardar exitosamente
+      localStorage.removeItem("cms_features")
+      localStorage.removeItem("cms_projects")
+      localStorage.removeItem("cms_settings")
 
       setHayCambios(false)
-      alert("¡Cambios guardados localmente!")
+      alert(
+        "¡Cambios guardados en el servidor! Recarga la web principal para verlos."
+      )
     } catch (error: any) {
       console.error(error)
       alert(`Error al guardar los cambios: ${error.message}`)
@@ -92,7 +106,11 @@ export default function PaginaAdmin() {
 
   const alExportar = () => {
     try {
-      const dataStr = JSON.stringify({ secciones, proyectos, configuracion }, null, 2)
+      const dataStr = JSON.stringify(
+        { secciones, proyectos, configuracion },
+        null,
+        2
+      )
       const dataUri =
         "data:application/json;charset=utf-8," + encodeURIComponent(dataStr)
       const exportFileDefaultName = "configuracion-web.json"
@@ -109,12 +127,13 @@ export default function PaginaAdmin() {
   }
 
   const alImportar = () => {
-    // Esta función requeriría un <input type="file"> y un FileReader
-    // Por ahora, es un placeholder.
     alert("Función de importar no implementada aún.")
   }
 
-  const cambiarConfiguracion = (campo: string, valor: string) => {
+  const cambiarConfiguracion = (
+    campo: keyof ConfiguracionSitioData,
+    valor: string | boolean
+  ) => {
     setConfiguracion((prev) => ({ ...prev, [campo]: valor }))
     setHayCambios(true)
   }
@@ -126,11 +145,11 @@ export default function PaginaAdmin() {
       eyebrow: "NUEVO",
       title: "Título de la sección",
       description: ["Descripción de la sección"],
-      image: "/placeholder.svg",
+      image: "",
       imageAlt: "Imagen",
       imagePosition: "right",
     }
-    setSecciones((prev) => [...prev, nueva])
+    setSecciones((prev) => [nueva, ...prev])
     setHayCambios(true)
   }
 
@@ -155,16 +174,12 @@ export default function PaginaAdmin() {
   }
 
   const moverSeccion = (i: number, dir: "up" | "down") => {
-    if (
-      (dir === "up" && i === 0) ||
-      (dir === "down" && i === secciones.length - 1)
-    )
+    if ((dir === "up" && i === 0) || (dir === "down" && i === secciones.length - 1))
       return
-
     setSecciones((prev) => {
       const nuevo = [...prev]
       const j = dir === "up" ? i - 1 : i + 1
-      ;[nuevo[i], nuevo[j]] = [nuevo[j], nuevo[i]] // Intercambio
+      ;[nuevo[i], nuevo[j]] = [nuevo[j], nuevo[i]]
       return nuevo
     })
     setHayCambios(true)
@@ -172,18 +187,9 @@ export default function PaginaAdmin() {
 
   // --- Funciones de Edición (PROYECTOS) ---
 
-  const agregarProyecto = () => {
-    const nuevo: Proyecto = {
-      id: `proyecto-${Date.now()}`, // ID único simple
-      titulo: "Nuevo Proyecto",
-      ubicacion: "Ubicación",
-      cliente: "Cliente",
-      año: new Date().getFullYear().toString(),
-      descripcion: "Descripción del nuevo proyecto.",
-      imagenes: ["/proyectos/placeholder.png"],
-      categoria: "Categoría",
-    }
-    setProyectos((prev) => [...prev, nuevo])
+  const handleAgregarProyecto = (nuevoProyecto: Proyecto) => {
+    // Agregamos el nuevo proyecto al PRINCIPIO de la lista
+    setProyectos((prev) => [nuevoProyecto, ...prev])
     setHayCambios(true)
   }
 
@@ -208,16 +214,12 @@ export default function PaginaAdmin() {
   }
 
   const moverProyecto = (i: number, dir: "up" | "down") => {
-    if (
-      (dir === "up" && i === 0) ||
-      (dir === "down" && i === proyectos.length - 1)
-    )
+    if ((dir === "up" && i === 0) || (dir === "down" && i === proyectos.length - 1))
       return
-
     setProyectos((prev) => {
       const nuevo = [...prev]
       const j = dir === "up" ? i - 1 : i + 1
-      ;[nuevo[i], nuevo[j]] = [nuevo[j], nuevo[i]] // Intercambio
+      ;[nuevo[i], nuevo[j]] = [nuevo[j], nuevo[i]]
       return nuevo
     })
     setHayCambios(true)
@@ -250,7 +252,6 @@ export default function PaginaAdmin() {
             <TabsTrigger value="configuracion">Configuración</TabsTrigger>
           </TabsList>
 
-          {/* Tab de Secciones */}
           <TabsContent value="secciones">
             <ListaSecciones
               secciones={secciones}
@@ -261,18 +262,16 @@ export default function PaginaAdmin() {
             />
           </TabsContent>
 
-          {/* Tab de Proyectos (AHORA FUNCIONAL) */}
           <TabsContent value="proyectos">
             <ListaProyectos
               proyectos={proyectos}
-              alAgregar={agregarProyecto}
+              onProyectoAgregado={handleAgregarProyecto}
               alEliminar={eliminarProyecto}
               alActualizar={actualizarProyecto}
               alMover={moverProyecto}
             />
           </TabsContent>
 
-          {/* Tab de Configuración */}
           <TabsContent value="configuracion">
             <ConfiguracionSitio
               configuracion={configuracion}
