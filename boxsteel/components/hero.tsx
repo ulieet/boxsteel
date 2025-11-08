@@ -4,7 +4,7 @@ const datos = {
   tituloPrincipal: "Rapidez | Eficiencia | Sustentabilidad | Confiabilidad",
   icono: "/images/box-logo.png", 
   descripcion:
-    'Somos especialistas en construcción con <span class="font-bold text-accent">steel frame</span>, un sistema constructivo moderno, eficiente y sustentable. Desarrollamos proyectos residenciales y comerciales con los más altos estándares de calidad, ofreciendo soluciones personalizadas que se adaptan a las necesidades de cada cliente.',
+    'En Box somos especialistas en construcción con <span class="font-bold text-accent">Steel Frame</span>, un sistema constructivo moderno, eficiente y sustentable. Desarrollamos proyectos residenciales y comerciales con los más altos estándares de calidad, ofreciendo soluciones personalizadas que se adaptan a las necesidades de cada cliente.',
   lema: "Transformamos ideas en construcciones sólidas, rápidas y económicas con tecnología de vanguardia.",
 };
 

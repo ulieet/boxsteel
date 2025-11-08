@@ -14,17 +14,7 @@
     "imagePosition": "right"
   },
   {
-    "eyebrow": "NUEVO",
-    "title": "Título de la sección",
-    "description": [
-      "Descripción de la sección"
-    ],
-    "image": "/placeholder.svg?height=400&width=600",
-    "imageAlt": "Imagen",
-    "imagePosition": "right"
-  },
-  {
-    "eyebrow": "aewawda",
+    "eyebrow": "Materiales de primera calidad y durabilidad",
     "title": "Título de la sección",
     "description": [
       "asdsada"
@@ -33,15 +23,5 @@
     "imageAlt": "jared",
     "imagePosition": "left",
     "subtitle": "awdwadawd"
-  },
-  {
-    "eyebrow": "NUEVO",
-    "title": "Título de la sección",
-    "description": [
-      "Descripción de la sección"
-    ],
-    "image": "/placeholder.svg?height=400&width=600",
-    "imageAlt": "Imagen",
-    "imagePosition": "right"
   }
 ]

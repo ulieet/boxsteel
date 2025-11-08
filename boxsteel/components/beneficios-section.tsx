@@ -1,35 +1,11 @@
+import { Arrow } from "@radix-ui/react-select"
 import Image from "next/image"
-import { Clock, Wrench, Home, TrendingUp, type LucideIcon } from "lucide-react"
-
-
+import Link from "next/link"
 
 const datosSeccion = {
   titulo: "¿Por qué elegir Steel Frame?",
   descripcion: "Un sistema constructivo que combina innovación, eficiencia y calidad para hacer realidad tu proyecto",
 }
-
-const beneficios: { icono: LucideIcon; titulo: string; descripcion: string }[] = [
-  {
-    icono: Clock,
-    titulo: "Construcción rápida",
-    descripcion: "Reducí los tiempos de obra hasta un 500% comparado con métodos tradicionales",
-  },
-  {
-    icono: Wrench,
-    titulo: "Sistema tradicional",
-    descripcion: "El Steel Frame es considerado un sistema de construcción tradicional y confiable",
-  },
-  {
-    icono: Home,
-    titulo: "Eficiencia energética",
-    descripcion: "Mejor aislación térmica y acústica para tu confort y ahorro",
-  },
-  {
-    icono: TrendingUp,
-    titulo: "Construcción en seco",
-    descripcion: "Proceso limpio, ordenado y sin desperdicios innecesarios",
-  },
-]
 
 const datosExtra = {
   imagenSrc: "/images/steel-frame-facts.png",
@@ -43,10 +19,9 @@ const datosExtra = {
   ]
 }
 
-
 export function SeccionBeneficios() {
   return (
-    <section id="beneficios" className="py-10 md:py-10 bg-muted/30 ">
+    <section id="beneficios" className="py-10 md:py-16 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
         
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
@@ -58,30 +33,17 @@ export function SeccionBeneficios() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12 md:mb-16">
-          {beneficios.map((beneficio) => (
-            <div key={beneficio.titulo} className="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <beneficio.icono className="w-6 h-6 text-accent" />
-              </div>
-              <h3 className="text-lg font-bold text-foreground mb-2">{beneficio.titulo}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{beneficio.descripcion}</p>
-            </div>
-          ))}
-        </div>
-
         <div className="grid lg:grid-cols-2 gap-8 items-center">
-        
           <div className="relative aspect-4/3 rounded-2xl overflow-hidden order-2 lg:order-1">
             <Image
               src={datosExtra.imagenSrc}
               alt={datosExtra.imagenAlt}
               fill
               className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw" // Añadido para optimización de imagen
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
-          
+
           <div className="space-y-6 order-1 lg:order-2">
             <h3 className="text-2xl lg:text-4xl font-bold text-foreground text-balance">
               {datosExtra.titulo}
@@ -99,8 +61,19 @@ export function SeccionBeneficios() {
                 </div>
               ))}
             </div>
+
+            <div className="pt-4">
+              <Link
+                href="/beneficios"
+                className="inline-block px-6 py-3 text-sm font-semibold rounded-lg bg-accent text-accent-foreground hover:bg-accent/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              >
+                Conocer más 
+              </Link>
+            </div>
+
           </div>
         </div>
+
       </div>
     </section>
   )

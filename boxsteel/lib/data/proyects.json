@@ -39,32 +39,6 @@
     "categoria": "Exteriores"
   },
   {
-    "id": "oficinas-coworking-laplata",
-    "titulo": "Diseño Oficinas Coworking",
-    "ubicacion": "La Plata Centro",
-    "cliente": "WorkSpace LP",
-    "año": "2023",
-    "descripcion": "Acondicionamiento de 200m2 para oficinas de coworking. Creación de áreas comunes, salas de reuniones privadas con paneles acústicos y puestos de trabajo flexibles.",
-    "imagenes": [
-      "/proyectos/oficina1.png",
-      "/proyectos/oficina2.png"
-    ],
-    "categoria": "Comercial"
-  },
-  {
-    "id": "renovacion-baño-tolosa",
-    "titulo": "Renovación Baño Principal",
-    "ubicacion": "Tolosa",
-    "cliente": "Particular",
-    "año": "2024",
-    "descripcion": "Modernización completa de baño principal. Reemplazo de cañerías, instalación de porcelanato símil mármol, bañera exenta y grifería de alta gama.",
-    "imagenes": [
-      "/proyectos/baño1.png",
-      "/proyectos/baño2.png"
-    ],
-    "categoria": "Interiores"
-  },
-  {
     "id": "ampliacion-dormitorio-ringuelet",
     "titulo": "Ampliación Dormitorio y Vestidor",
     "ubicacion": "Ringuelet",
