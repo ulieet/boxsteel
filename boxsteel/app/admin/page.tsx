@@ -7,38 +7,32 @@ import { ListaSecciones } from "@/app/admin/components/lista-secciones"
 import { ConfiguracionSitio } from "@/app/admin/components/configuracion"
 import { ListaProyectos } from "@/app/admin/components/lista-proyectos"
 
-// Importar datos JSON
 import featuresData from "@/lib/data/features.json"
 import projectsData from "@/lib/data/proyects.json"
-// Usamos una importación 'require' para config.json para evitar problemas de cache
 const configData = require("@/lib/data/config.json") 
 
-// Importar tipos
 import type {
   FeatureData,
   Proyecto,
   ConfiguracionSitioData,
 } from "@/app/admin/components/types"
 
-// --- Configuración inicial por defecto ---
 // IMPORTANTE: Definido fuera del componente para que sea una constante de referencia
 const defaultConfiguracion: ConfiguracionSitioData = {
   fuentePrincipal: "Inter",
   fuenteTitulos: "Inter",
-  colorAcento: "#14b8a6", // <-- CORREGIDO al color original
+  colorAcento: "#14b8a6", 
 }
 
 export default function PaginaAdmin() {
   const [isClient, setIsClient] = useState(false)
   const [hayCambios, setHayCambios] = useState(false)
 
-  // Estados de datos
   const [secciones, setSecciones] = useState<FeatureData[]>([])
   const [proyectos, setProyectos] = useState<Proyecto[]>([])
   const [configuracion, setConfiguracion] =
     useState<ConfiguracionSitioData>(defaultConfiguracion)
 
-  // --- Efectos ---
   useEffect(() => {
     // Carga inicial de datos JSON y localStorage
     try {
@@ -53,7 +47,6 @@ export default function PaginaAdmin() {
         savedProjects ? JSON.parse(savedProjects) : (projectsData as Proyecto[])
       )
       
-      // Combinamos el default del código con el del JSON
       const jsonConfig = configData || {};
       const initialState = { ...defaultConfiguracion, ...jsonConfig }; 
       
@@ -94,7 +87,6 @@ export default function PaginaAdmin() {
         )
       }
 
-      // Limpiamos localStorage después de guardar exitosamente
       localStorage.removeItem("cms_features")
       localStorage.removeItem("cms_projects")
       localStorage.removeItem("cms_settings")
@@ -145,12 +137,11 @@ export default function PaginaAdmin() {
 
   const alRestablecer = () => {
     if (confirm("¿Restablecer la configuración a los valores por defecto?")) {
-      setConfiguracion(defaultConfiguracion) // <-- Usa la constante corregida
+      setConfiguracion(defaultConfiguracion) 
       setHayCambios(true)
     }
   }
 
-  // --- Funciones de Edición (SECCIONES) ---
 
   const agregarSeccion = () => {
     const nueva: FeatureData = {
@@ -197,7 +188,6 @@ export default function PaginaAdmin() {
     setHayCambios(true)
   }
 
-  // --- Funciones de Edición (PROYECTOS) ---
 
   const handleAgregarProyecto = (nuevoProyecto: Proyecto) => {
     setProyectos((prev) => [nuevoProyecto, ...prev])
@@ -236,7 +226,6 @@ export default function PaginaAdmin() {
     setHayCambios(true)
   }
 
-  // --- Renderizado ---
 
   if (!isClient) {
     return (

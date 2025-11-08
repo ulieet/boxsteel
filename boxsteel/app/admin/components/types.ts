@@ -3,7 +3,7 @@ export interface FeatureData {
   title: string
   subtitle?: string
   description: string[] | string
-  image: string // Esto será un string base64 (data:image/...) o una URL
+  image: string //string base64 (data:image/...) o una URL
   imageAlt: string
   imagePosition: "left" | "right"
 }

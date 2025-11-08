@@ -21,7 +21,7 @@ interface ModalProyectoProps {
 }
 
 const initialState: Proyecto = {
-  id: "", // El ID se generará al guardar
+  id: "", 
   titulo: "",
   ubicacion: "",
   cliente: "",
@@ -79,7 +79,7 @@ export function ModalProyecto({ onGuardar }: ModalProyectoProps) {
     }
     
     onGuardar(proyectoFinal)
-    setProyecto(initialState) // Reseteamos el formulario
+    setProyecto(initialState) 
   }
 
   return (
