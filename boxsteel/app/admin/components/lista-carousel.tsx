@@ -1,17 +1,22 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Trash2, ArrowUp, ArrowDown, Plus } from "lucide-react"
 import type { CarouselSlide } from "./types"
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { ModalCarousel } from "./modal-carousel"
 
-// Definimos las props que recibirá este componente desde la página de admin
 interface ListaCarouselProps {
   slides: CarouselSlide[]
-  alAgregar: () => void
+  onSlideAgregado: (nuevoSlide: CarouselSlide) => void
   alEliminar: (indice: number) => void
   alActualizar: (indice: number, campo: keyof CarouselSlide, valor: string) => void
   alMover: (indice: number, direccion: "up" | "down") => void
@@ -20,14 +25,14 @@ interface ListaCarouselProps {
 
 export function ListaCarousel({
   slides,
-  alAgregar,
+  onSlideAgregado,
   alEliminar,
   alActualizar,
   alMover,
   alSubirImagen,
 }: ListaCarouselProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  // Handler local para el input de tipo "file"
   const handleImageUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
     imgIndex: number
@@ -38,29 +43,41 @@ export function ListaCarousel({
     }
   }
 
+  const handleGuardarModal = (nuevoSlide: CarouselSlide) => {
+    onSlideAgregado(nuevoSlide)
+    setIsModalOpen(false) 
+  }
+
   return (
+    // El div principal ya NO es el Dialog
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Gestionar Carrusel Principal</h2>
-        <Button
-          onClick={alAgregar}
-          className="gap-2 bg-accent hover:bg-accent/90 text-accent-foreground"
-        >
-          <Plus className="h-4 w-4" /> Agregar Slide
-        </Button>
-      </div>
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Gestionar Carrusel Principal</h2>
+          <DialogTrigger asChild>
+            <Button
+              className="gap-2 bg-accent hover:bg-accent/90 text-accent-foreground"
+            >
+              <Plus className="h-4 w-4" /> Agregar Slide
+            </Button>
+          </DialogTrigger>
+        </div>
+
+        <DialogContent className="max-w-lg">
+          <ModalCarousel onGuardar={handleGuardarModal} />
+        </DialogContent>
+      </Dialog> {/* El Dialog se cierra aquí */}
 
       <p className="text-sm text-muted-foreground">
         Administra las imágenes que aparecen en el carrusel principal de la página de inicio.
       </p>
 
+      {/* La lista de slides va FUERA del Dialog */}
       <div className="space-y-4">
         {slides.map((slide, i) => (
           <Card key={i} className="p-6">
             <div className="flex items-start justify-between mb-4">
-              <h3 className="text-lg font-semibold">
-                Slide {i + 1}
-              </h3>
+              <h3 className="text-lg font-semibold">Slide {i + 1}</h3>
               <div className="flex gap-2">
                 <Button
                   variant="outline"

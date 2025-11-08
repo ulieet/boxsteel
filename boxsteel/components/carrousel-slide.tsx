@@ -8,7 +8,7 @@ import carouselData from "@/lib/data/carousel.json"; //aca importo los datos del
 
 
 export default function CarruselPrincipal() {
-  const [imagenes] = useState(carouselData); //Usa los datos importados
+  const [imagenes] = useState(carouselData); 
   const [indiceActual, setIndiceActual] = useState(0);
   const [direccion, setDireccion] = useState(0);
   const [estaPausado, setEstaPausado] = useState(false);
@@ -32,7 +32,7 @@ export default function CarruselPrincipal() {
 
   useEffect(() => {
     if (estaPausado || imagenes.length <= 1) return;
-    const interval = setInterval(siguienteImagen, 3000);
+    const interval = setInterval(siguienteImagen, 2000); //esto es lo que me dice la velocidad de cambio de las fotos que puse
     return () => clearInterval(interval);
   }, [estaPausado, siguienteImagen, imagenes.length]);
 
@@ -55,7 +55,8 @@ export default function CarruselPrincipal() {
       onMouseEnter={() => setEstaPausado(true)}
       onMouseLeave={() => setEstaPausado(false)}
     >
-      <AnimatePresence initial={false} custom={direccion} mode="wait">
+  
+      <AnimatePresence initial={false} custom={direccion}>
         <motion.div
           key={indiceActual}
           custom={direccion}
@@ -64,7 +65,7 @@ export default function CarruselPrincipal() {
           animate="center"
           exit="exit"
           transition={{
-            x: { type: "spring", stiffness: 300, damping: 30 },
+            x: { type: "spring", stiffness: 200, damping: 30 },
             opacity: { duration: 0.3 },
           }}
           className="absolute w-full h-full"

@@ -5,15 +5,13 @@ export function Footer() {
   return (
     <footer className="bg-foreground text-white py-16 px-6 border-t border-slate-600">
       <div className="max-w-6xl mx-auto">
-        {/* Main Content Grid */}
+    
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Company Info */}
           <div className="space-y-3">
             <h3 className="text-lg font-semibold text-teal-400">Box Steel Frame</h3>
             <p className="text-sm text-slate-200">Especialistas en estructuras de acero y construcción.</p>
           </div>
 
-          {/* Location Section */}
           <div className="space-y-3">
             <h4 className="font-semibold text-white flex items-center gap-2">
               <MapPin className="w-4 h-4 text-teal-400" />
@@ -27,11 +25,9 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Contact Section */}
           <div className="space-y-3">
             <h4 className="font-semibold text-white">Contacto</h4>
             <div className="space-y-3 text-sm">
-              {/* WhatsApp */}
               <a
                 href="https://wa.me/542213147323"
                 className="flex items-center gap-3 text-white hover:text-teal-300 transition p-2 bg-teal-600 hover:bg-teal-500 rounded"
@@ -40,7 +36,6 @@ export function Footer() {
                 2213147323
               </a>
 
-              {/* Email */}
               <a
                 href="mailto:info@boxsteelframe.com.ar"
                 className="flex items-center gap-3 text-white hover:text-teal-300 transition p-2 bg-teal-600 hover:bg-teal-500 rounded"
@@ -49,7 +44,6 @@ export function Footer() {
                 info@boxsteelframe.com.ar
               </a>
 
-              {/* Phone */}
               <a
                 href="tel:+541175637396"
                 className="flex items-center gap-3 text-white hover:text-teal-300 transition p-2 bg-teal-600 hover:bg-teal-500 rounded"
@@ -60,7 +54,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Social Section */}
           <div className="space-y-3">
             <h4 className="font-semibold text-white">Síguenos</h4>
             <div className="flex gap-3">
@@ -82,10 +75,8 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-slate-600 my-8"></div>
 
-        {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-300">
             © {new Date().getFullYear()} Box Steel Frame. Todos los derechos reservados.

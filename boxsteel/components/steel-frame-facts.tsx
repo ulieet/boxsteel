@@ -24,7 +24,6 @@ export function DatosSteelFrame() {
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
-        {/* Agregue el overflow-x-hidden para asegurar que no haya desborde en el page  */}
         <div className="max-w-4xl mx-auto overflow-x-hidden">
           
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-16">

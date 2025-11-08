@@ -3,11 +3,10 @@
 import { useState, useEffect } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { EncabezadoAdmin } from "@/app/admin/components/header-admin"
-import { ListaSecciones } from "@/app/admin/components/lista-secciones"
+import { ListaSecciones } from "@/app/admin/components/lista-secciones" 
 import { ConfiguracionSitio } from "@/app/admin/components/configuracion"
-import { ListaProyectos } from "@/app/admin/components/lista-proyectos"
+import { ListaProyectos } from "@/app/admin/components/lista-proyectos" 
 import { ListaCarousel } from "@/app/admin/components/lista-carousel" 
-
 import featuresData from "@/lib/data/features.json"
 import projectsData from "@/lib/data/proyects.json"
 import carouselData from "@/lib/data/carousel.json" 
@@ -74,8 +73,6 @@ export default function PaginaAdmin() {
     setIsClient(true)
   }, [])
 
-  // --- Funciones de Manejo de Datos ---
-
   const guardarCambios = async () => {
     try {
       const respuesta = await fetch("/api/guardar-datos", {
@@ -96,10 +93,11 @@ export default function PaginaAdmin() {
         )
       }
 
+// Limpio localStorage
       localStorage.removeItem("cms_features")
       localStorage.removeItem("cms_projects")
       localStorage.removeItem("cms_settings")
-      localStorage.removeItem("cms_carousel") // Limpia localStorage
+      localStorage.removeItem("cms_carousel") 
 
       setHayCambios(false)
       alert(
@@ -150,16 +148,8 @@ export default function PaginaAdmin() {
     }
   }
 
-  const agregarSeccion = () => {
-    const nueva: FeatureData = {
-      eyebrow: "NUEVO",
-      title: "Título de la sección",
-      description: ["Descripción de la sección"],
-      image: "", 
-      imageAlt: "Imagen",
-      imagePosition: "right",
-    }
-    setSecciones((prev) => [nueva, ...prev])
+  const agregarSeccion = (nuevaSeccion: FeatureData) => {
+    setSecciones((prev) => [nuevaSeccion, ...prev])
     setHayCambios(true)
   }
 
@@ -233,8 +223,7 @@ export default function PaginaAdmin() {
   }
 
 
-  const agregarSlide = () => {
-    const nuevoSlide: CarouselSlide = { src: "", alt: "Nuevo Slide" }
+  const agregarSlide = (nuevoSlide: CarouselSlide) => {
     setCarouselSlides((prev) => [...prev, nuevoSlide])
     setHayCambios(true)
   }
@@ -315,7 +304,7 @@ export default function PaginaAdmin() {
           <TabsContent value="carousel">
             <ListaCarousel
               slides={carouselSlides}
-              alAgregar={agregarSlide}
+              onSlideAgregado={agregarSlide}
               alEliminar={eliminarSlide}
               alActualizar={actualizarSlide}
               alMover={moverSlide}
@@ -323,15 +312,15 @@ export default function PaginaAdmin() {
             />
           </TabsContent>
 
-          <TabsContent value="secciones">
-            <ListaSecciones
-              secciones={secciones}
-              alAgregar={agregarSeccion}
-              alEliminar={eliminarSeccion}
-              alActualizar={actualizarSeccion}
-              alMover={moverSeccion}
-            />
-          </TabsContent>
+    <TabsContent value="secciones">
+      <ListaSecciones 
+        secciones={secciones}
+        onSeccionAgregada={agregarSeccion} 
+        alEliminar={eliminarSeccion}
+        alActualizar={actualizarSeccion}
+        alMover={moverSeccion}
+      />
+    </TabsContent>
 
           <TabsContent value="proyectos">
             <ListaProyectos

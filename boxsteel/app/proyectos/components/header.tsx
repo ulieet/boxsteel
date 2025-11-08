@@ -13,17 +13,15 @@ export default function ProyectosHeader() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl">
           <div className="inline-block mb-6">
-            {/* --- DIV MODIFICADO --- */}
             <div className="bg-accent px-8 py-3 transform -skew-x-6">
-              {/* --- H1 MODIFICADO --- */}
-              <h1 className="text-4xl md:text-6xl font-bold text-accent-foreground transform skew-x-6">
+               <h1 className="text-4xl md:text-6xl font-bold text-accent-foreground transform skew-x-6">
                 NUESTROS PROYECTOS
               </h1>
             </div>
           </div>
           <p className="text-gray-300 text-lg md:text-xl max-w-3xl leading-relaxed">
-            Hemos ejecutado obras de todo tipo: cárceles, hospitales, laboratorios, escuelas, universidades, oficinas,
-            judiciales, naves industriales, estadios, polideportivos, estaciones de servicio y más.
+            Te mostramos como creamos  obras, destacando su rapidez de ejecución, bajo mantenimiento. Cada proyecto refleja nuestro compromiso con la ingeniería, 
+            la durabilidad y la innovación constructiva.
           </p>
         </div>
       </div>

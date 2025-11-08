@@ -5,19 +5,18 @@ import type {
   FeatureData,
   Proyecto,
   ConfiguracionSitioData,
-  CarouselSlide, // <-- 1. Importa el tipo
+  CarouselSlide, 
 } from "@/app/admin/components/types"
 
 interface RequestBody {
   secciones?: FeatureData[]
   proyectos?: Proyecto[]
   configuracion?: ConfiguracionSitioData
-  carousel?: CarouselSlide[] // <-- 2. Añade al body
+  carousel?: CarouselSlide[] 
 }
 
 // Función para manejar el guardado de imágenes Base64
 const saveBase64Image = (base64Data: string, relativePath: string): string => {
-  // ... (Esta función no necesita cambios, ya funciona para todo)
   if (!base64Data || !base64Data.startsWith("data:image")) {
     return base64Data 
   }
@@ -46,12 +45,10 @@ const saveBase64Image = (base64Data: string, relativePath: string): string => {
 
 export async function POST(request: Request) {
   if (process.env.NODE_ENV === "production") {
-    // ... (bloqueo de producción)
   }
 
   try {
     const body: RequestBody = await request.json()
-    // 3. Extrae 'carousel' del body
     const { secciones, proyectos, configuracion, carousel } = body
 
     const dataDir = path.join(process.cwd(), "lib", "data")
@@ -59,9 +56,7 @@ export async function POST(request: Request) {
       fs.mkdirSync(dataDir, { recursive: true })
     }
 
-    // --- Procesar y Guardar Secciones ---
     if (secciones) {
-      // Esto está correcto, procesa la 'image' única de cada sección
       const seccionesProcesadas = secciones.map(seccion => ({
         ...seccion,
         image: saveBase64Image(seccion.image, "uploads"),
@@ -71,9 +66,8 @@ export async function POST(request: Request) {
       fs.writeFileSync(featuresPath, JSON.stringify(seccionesProcesadas, null, 2), "utf8")
     }
 
-    // --- Procesar y Guardar Proyectos ---
     if (proyectos) {
-      // (Esto ya estaba bien)
+  
       const proyectosProcesados = proyectos.map(proyecto => ({
         ...proyecto,
         imagenes: proyecto.imagenes.map(img => saveBase64Image(img, "uploads")),
@@ -83,14 +77,13 @@ export async function POST(request: Request) {
       fs.writeFileSync(projectsPath, JSON.stringify(proyectosProcesados, null, 2), "utf8")
     }
 
-    // --- Guardar Configuración ---
     if (configuracion) {
-      // (Esto ya estaba bien)
+   
       const configPath = path.join(dataDir, "config.json")
       fs.writeFileSync(configPath, JSON.stringify(configuracion, null, 2), "utf8")
     }
 
-    // +++ 4. AÑADE EL GUARDADO DEL CARRUSEL +++
+
     if (carousel) {
       // Procesa las imágenes (base64 a URL)
       const carouselProcesado = carousel.map(slide => ({
@@ -101,7 +94,6 @@ export async function POST(request: Request) {
       const carouselPath = path.join(dataDir, "carousel.json")
       fs.writeFileSync(carouselPath, JSON.stringify(carouselProcesado, null, 2), "utf8")
     }
-    // +++ FIN +++
 
 
     return NextResponse.json({

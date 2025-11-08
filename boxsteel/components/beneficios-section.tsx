@@ -62,14 +62,18 @@ export function SeccionBeneficios() {
               ))}
             </div>
 
-            <div className="pt-4">
+            <div className="pt-4 mt-18 ml-3">
               <Link
                 href="/beneficios"
-                className="inline-block px-6 py-3 text-sm font-semibold rounded-lg bg-accent text-accent-foreground hover:bg-accent/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-lg bg-accent text-accent-foreground hover:bg-accent/80 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 group"
               >
                 Conocer más 
+                <span className="text-lg transform transition-transform duration-300 group-hover:translate-x-1">
+                  ➜
+                </span>
               </Link>
             </div>
+
 
           </div>
         </div>

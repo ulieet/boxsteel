@@ -20,19 +20,18 @@ interface ConfiguracionSitioProps {
     campo: keyof ConfiguracionSitioData,
     valor: string | boolean
   ) => void
-  alRestablecer: () => void // <-- Nueva prop
+  alRestablecer: () => void 
 }
 
 export function ConfiguracionSitio({
   configuracion,
   alCambiar,
-  alRestablecer, // <-- Nueva prop
+  alRestablecer, 
 }: ConfiguracionSitioProps) {
   return (
     <Card className="p-6 space-y-6 max-w-2xl mx-auto">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">Configuración General del Sitio</h2>
-        {/* --- NUEVO BOTÓN --- */}
         <Button
           variant="outline"
           size="sm"
@@ -67,7 +66,6 @@ export function ConfiguracionSitio({
         </Select>
       </div>
 
-      {/* Selector de Fuente de Títulos */}
       <div className="space-y-2">
         <Label>Fuente de Títulos (H1, H2, H3)</Label>
         <Select
@@ -91,7 +89,6 @@ export function ConfiguracionSitio({
         </Select>
       </div>
 
-      {/* Selector de Color de Acento */}
       <div className="space-y-2">
         <Label>Color de Acento (Botones, Links)</Label>
         <div className="flex gap-2">

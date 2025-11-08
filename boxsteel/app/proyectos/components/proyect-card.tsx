@@ -1,7 +1,6 @@
 import { MapPin } from "lucide-react"
 import { ProjectImageSlider } from "./proyect-image-slider"
 
-// 1. Definimos la misma interfaz aquí
 interface Proyecto {
   id: string
   titulo: string
@@ -13,9 +12,6 @@ interface Proyecto {
   categoria: string
 }
 
-// 2. La firma del componente usa la interfaz
-//    Aunque no uses 'cliente' o 'año' visualmente, la interfaz
-//    debe tenerlos porque el objeto que llega los tiene.
 export default function TarjetaProyecto({ id, titulo, ubicacion, descripcion, imagenes, categoria }: Proyecto) {
   return (
     <article
