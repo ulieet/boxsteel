@@ -123,9 +123,7 @@ export default function PaginaAdmin() {
     }
   }
 
-  const alImportar = () => {
-    alert("Función de importar no implementada aún.")
-  }
+
 
   const cambiarConfiguracion = (
     campo: keyof ConfiguracionSitioData,
@@ -241,13 +239,12 @@ export default function PaginaAdmin() {
         alGuardar={guardarCambios}
         hayCambios={hayCambios}
         alExportar={alExportar}
-        alImportar={alImportar}
       />
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="proyectos" className="space-y-6">
           <TabsList>
-            <TabsTrigger value="secciones">Secciones (Landing)</TabsTrigger>
+            <TabsTrigger value="secciones">Secciones Inicio(Landing)</TabsTrigger>
             <TabsTrigger value="proyectos">Proyectos</TabsTrigger>
             <TabsTrigger value="configuracion">Configuración</TabsTrigger>
           </TabsList>

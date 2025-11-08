@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import { TarjetaSeccion } from "@/app/admin/components/card-admin"
-import type { FeatureData } from "./types" // Importamos el tipo
+import type { FeatureData } from "./types" 
 
 interface ListaSeccionesProps {
   secciones: FeatureData[]
@@ -11,7 +11,6 @@ interface ListaSeccionesProps {
   alEliminar: (indice: number) => void
   alActualizar: (indice: number, campo: keyof FeatureData, valor: any) => void
   alMover: (indice: number, direccion: "up" | "down") => void
-  // Quitamos 'alGuardar' y 'hayCambios' de aquí, irán en el header principal
 }
 
 export function ListaSecciones({

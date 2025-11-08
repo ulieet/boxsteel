@@ -7,22 +7,19 @@ import { Save, Upload, Download } from "lucide-react"
 interface EncabezadoAdminProps {
   alGuardar: () => void
   alExportar: () => void
-  alImportar: () => void 
+
   hayCambios: boolean
 }
 
 export function EncabezadoAdmin({
   alGuardar,
   alExportar,
-  alImportar,
   hayCambios,
 }: EncabezadoAdminProps) {
   
   const fileInputRef = React.useRef<HTMLInputElement>(null)
 
-  const handleImportClick = () => {
-    alImportar()
-  }
+
 
   return (
     <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b shadow-sm">
@@ -35,21 +32,11 @@ export function EncabezadoAdmin({
           <Button
             variant="outline"
             className="gap-2"
-            onClick={handleImportClick}
-          >
-            <Upload className="h-4 w-4" /> Importar
-          </Button>
-          {/* <input ... /> */}
-
-          <Button
-            variant="outline"
-            className="gap-2"
             onClick={alExportar}
           >
             <Download className="h-4 w-4" /> Exportar JSON
           </Button>
           
-          {/* --- BOTÓN MODIFICADO --- */}
           <Button
             onClick={alGuardar}
             disabled={!hayCambios}

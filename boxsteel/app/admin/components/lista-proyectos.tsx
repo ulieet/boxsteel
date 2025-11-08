@@ -40,7 +40,6 @@ export function ListaProyectos({
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">Gestionar Proyectos</h2>
           <DialogTrigger asChild>
-            {/* --- BOTÓN MODIFICADO --- */}
             <Button className="gap-2 bg-accent hover:bg-accent/90 text-accent-foreground">
               <Plus className="h-4 w-4" /> Agregar Proyecto
             </Button>

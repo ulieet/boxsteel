@@ -1,32 +1,5 @@
 [
   {
-    "eyebrow": "EQUIPOS PROPIOS",
-    "title": "Disponibilidad en cualquier etapa del proyecto",
-    "subtitle": "Siempre listos para tu obra",
-    "description": [
-      "En nuestro centro logístico contamos con un gran parque de equipos de alto rendimiento propios para llevar adelante las obras.",
-      "Gran parque de equipos propios.",
-      "Contamos con expertos maquinistas y mecánicos.",
-      "Más de 60 equipos para pavimentos, movimientos de suelo, desmontes, compactaciones, excavaciones y mucho más."
-    ],
-    "image": "/images/construction-equipment-trucks-excavators.jpg",
-    "imageAlt": "Equipos de construcción",
-    "imagePosition": "left"
-  },
-  {
-    "eyebrow": "CONSTRUCCIÓN EFICIENTE",
-    "title": "500% más rápido que la construcción tradicional",
-    "subtitle": "Optimización de tiempos",
-    "description": [
-      "El sistema Steel Frame reduce drásticamente los plazos gracias a su proceso industrializado y en seco.",
-      "Montaje rápido, preciso y sin tiempos de fraguado.",
-      "Menor cantidad de personal necesario en obra."
-    ],
-    "image": "/images/construction-site.png",
-    "imageAlt": "Construcción con Steel Frame",
-    "imagePosition": "left"
-  },
-  {
     "eyebrow": "CALIDAD GARANTIZADA",
     "title": "Materiales de primera calidad y durabilidad",
     "subtitle": "Garantía de excelencia",
@@ -38,6 +11,37 @@
     ],
     "image": "/images/modern-house.png",
     "imageAlt": "Casa moderna con Steel Frame",
+    "imagePosition": "right"
+  },
+  {
+    "eyebrow": "NUEVO",
+    "title": "Título de la sección",
+    "description": [
+      "Descripción de la sección"
+    ],
+    "image": "/placeholder.svg?height=400&width=600",
+    "imageAlt": "Imagen",
+    "imagePosition": "right"
+  },
+  {
+    "eyebrow": "aewawda",
+    "title": "Título de la sección",
+    "description": [
+      "asdsada"
+    ],
+    "image": "/uploads/img-1762634072892-502683297.png",
+    "imageAlt": "jared",
+    "imagePosition": "left",
+    "subtitle": "awdwadawd"
+  },
+  {
+    "eyebrow": "NUEVO",
+    "title": "Título de la sección",
+    "description": [
+      "Descripción de la sección"
+    ],
+    "image": "/placeholder.svg?height=400&width=600",
+    "imageAlt": "Imagen",
     "imagePosition": "right"
   }
 ]
