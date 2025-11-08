@@ -27,7 +27,7 @@ export function ListaSecciones({
         <div className="flex gap-2">
           <Button
             onClick={alAgregar}
-            className="gap-2 bg-teal-600 hover:bg-teal-700"
+            className="bg-accent"
           >
             <Plus className="h-4 w-4" /> Agregar Sección
           </Button>

@@ -4,13 +4,11 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import carouselData from "@/lib/data/carousel.json"; //aca importo los datos del json
 
-const imagenes = [
-  { src: "/images/casa1.png", alt: "Logo Box Steel Frame" },
-  { src: "/images/casa2.png", alt: "Construcción Steel Frame" },
-];
 
 export default function CarruselPrincipal() {
+  const [imagenes] = useState(carouselData); //Usa los datos importados
   const [indiceActual, setIndiceActual] = useState(0);
   const [direccion, setDireccion] = useState(0);
   const [estaPausado, setEstaPausado] = useState(false);
@@ -73,7 +71,7 @@ export default function CarruselPrincipal() {
         >
           <Image
             src={imagenes[indiceActual].src}
-            alt={imagenes[indiceActual].alt}
+            alt={imagenes[indiceActual].alt} // alt del JSON
             fill
             className="object-cover"
             priority={indiceActual === 0}
@@ -82,7 +80,6 @@ export default function CarruselPrincipal() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Aca agregue nuevos botones y Paginación (con clases limpias) */}
       {imagenes.length > 1 && (
         <>
           <button

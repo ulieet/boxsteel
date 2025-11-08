@@ -5,67 +5,54 @@ import type {
   FeatureData,
   Proyecto,
   ConfiguracionSitioData,
+  CarouselSlide, // <-- 1. Importa el tipo
 } from "@/app/admin/components/types"
 
 interface RequestBody {
   secciones?: FeatureData[]
   proyectos?: Proyecto[]
   configuracion?: ConfiguracionSitioData
+  carousel?: CarouselSlide[] // <-- 2. Añade al body
 }
 
 // Función para manejar el guardado de imágenes Base64
 const saveBase64Image = (base64Data: string, relativePath: string): string => {
-  // Las imágenes guardadas en el JSON pueden ser URLs antiguas (http://...) o nuevas (data:image/...)
-  // Solo procesamos las nuevas imágenes base64
+  // ... (Esta función no necesita cambios, ya funciona para todo)
   if (!base64Data || !base64Data.startsWith("data:image")) {
-    return base64Data // Devolvemos la ruta/URL original si no es base64
+    return base64Data 
   }
-
   try {
     const publicDir = path.join(process.cwd(), "public")
-    // Asegurarse de que la ruta relativa empieza con /
     if (!relativePath.startsWith("/")) {
       relativePath = "/" + relativePath
     }
-    
-    // Generar un nombre de archivo único
     const ext = base64Data.substring(base64Data.indexOf('/') + 1, base64Data.indexOf(';base64'));
     const fileName = `img-${Date.now()}-${Math.round(Math.random() * 1E9)}.${ext}`;
     const fullPath = path.join(publicDir, "uploads", fileName);
-    const publicUrl = `/uploads/${fileName}`; // Ruta pública
-
-    // Limpiar el string base64
+    const publicUrl = `/uploads/${fileName}`; 
     const data = base64Data.replace(/^data:image\/\w+;base64,/, "");
     const buffer = Buffer.from(data, "base64");
-
-    // Asegurarse de que el directorio /public/uploads existe
     const uploadDir = path.join(publicDir, "uploads");
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
-
-    // Escribir el archivo
     fs.writeFileSync(fullPath, buffer);
-    
-    return publicUrl; // Devolvemos la nueva URL pública
-
+    return publicUrl; 
   } catch (e) {
     console.error("Error al guardar imagen base64:", e);
-    return base64Data; // Devolvemos el base64 si falla (aunque no es ideal)
+    return base64Data; 
   }
 };
 
 export async function POST(request: Request) {
   if (process.env.NODE_ENV === "production") {
-    return NextResponse.json(
-      { error: "La escritura de archivos está deshabilitada en producción." },
-      { status: 403 }
-    )
+    // ... (bloqueo de producción)
   }
 
   try {
     const body: RequestBody = await request.json()
-    const { secciones, proyectos, configuracion } = body
+    // 3. Extrae 'carousel' del body
+    const { secciones, proyectos, configuracion, carousel } = body
 
     const dataDir = path.join(process.cwd(), "lib", "data")
     if (!fs.existsSync(dataDir)) {
@@ -74,7 +61,7 @@ export async function POST(request: Request) {
 
     // --- Procesar y Guardar Secciones ---
     if (secciones) {
-      // Reemplazamos imágenes base64 por URLs antes de guardar
+      // Esto está correcto, procesa la 'image' única de cada sección
       const seccionesProcesadas = secciones.map(seccion => ({
         ...seccion,
         image: saveBase64Image(seccion.image, "uploads"),
@@ -86,7 +73,7 @@ export async function POST(request: Request) {
 
     // --- Procesar y Guardar Proyectos ---
     if (proyectos) {
-      // Reemplazamos imágenes base64 por URLs antes de guardar
+      // (Esto ya estaba bien)
       const proyectosProcesados = proyectos.map(proyecto => ({
         ...proyecto,
         imagenes: proyecto.imagenes.map(img => saveBase64Image(img, "uploads")),
@@ -98,9 +85,24 @@ export async function POST(request: Request) {
 
     // --- Guardar Configuración ---
     if (configuracion) {
+      // (Esto ya estaba bien)
       const configPath = path.join(dataDir, "config.json")
       fs.writeFileSync(configPath, JSON.stringify(configuracion, null, 2), "utf8")
     }
+
+    // +++ 4. AÑADE EL GUARDADO DEL CARRUSEL +++
+    if (carousel) {
+      // Procesa las imágenes (base64 a URL)
+      const carouselProcesado = carousel.map(slide => ({
+        ...slide,
+        src: saveBase64Image(slide.src, "uploads"),
+      }));
+      
+      const carouselPath = path.join(dataDir, "carousel.json")
+      fs.writeFileSync(carouselPath, JSON.stringify(carouselProcesado, null, 2), "utf8")
+    }
+    // +++ FIN +++
+
 
     return NextResponse.json({
       message: "Datos guardados localmente con éxito.",

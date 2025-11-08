@@ -44,7 +44,6 @@ export function ConfiguracionSitio({
         </Button>
       </div>
 
-      {/* Selector de Fuente Principal */}
       <div className="space-y-2">
         <Label>Fuente Principal (Textos)</Label>
         <Select

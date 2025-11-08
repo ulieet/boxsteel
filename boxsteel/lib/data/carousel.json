@@ -1,4 +1,10 @@
 [
-  { "src": "/images/casa1.png", "alt": "Logo Box Steel Frame" },
-  { "src": "/images/casa2.png", "alt": "Construcción Steel Frame" }
+  {
+    "src": "/uploads/img-1762640299328-250402649.png",
+    "alt": "Logo Box Steel Frame"
+  },
+  {
+    "src": "/uploads/img-1762640299329-539217578.png",
+    "alt": "Construcción Steel Frame"
+  }
 ]

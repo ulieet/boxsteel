@@ -24,3 +24,8 @@ export interface ConfiguracionSitioData {
   fuenteTitulos: string
   colorAcento: string
 }
+
+export interface CarouselSlide {
+  src: string; // Será la URL de la imagen o un base64 temporal
+  alt: string; 
+}

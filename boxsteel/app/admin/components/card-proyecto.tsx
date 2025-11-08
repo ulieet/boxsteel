@@ -27,7 +27,7 @@ export function TarjetaProyecto({
 }: TarjetaProyectoProps) {
 
   const agregarImagen = () => {
-    const nuevasImagenes = [...proyecto.imagenes, ""] // Añadir slot vacío
+    const nuevasImagenes = [...proyecto.imagenes, ""] 
     alActualizar(indice, "imagenes", nuevasImagenes)
   }
 
@@ -82,7 +82,6 @@ export function TarjetaProyecto({
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {/* Columna Izquierda */}
         <div className="space-y-4">
           <div className="space-y-2">
             <Label>ID (auto-generado: {proyecto.id})</Label>
@@ -141,7 +140,6 @@ export function TarjetaProyecto({
           </div>
         </div>
 
-        {/* Columna Derecha */}
         <div className="space-y-4">
           <div className="space-y-2">
             <Label>Descripción</Label>
@@ -155,7 +153,6 @@ export function TarjetaProyecto({
             />
           </div>
 
-          {/* Gestión de Imágenes */}
           <div className="space-y-2">
             <Label>Imágenes</Label>
             <div className="space-y-4">

@@ -38,7 +38,6 @@ export function TarjetaSeccion({
     if (file) {
       const reader = new FileReader()
       reader.onloadend = () => {
-        // Guardamos la imagen como un string base64
         alActualizar(indice, "image", reader.result as string)
       }
       reader.readAsDataURL(file)
@@ -85,7 +84,6 @@ export function TarjetaSeccion({
           />
         </div>
 
-        {/* --- CAMBIO: ID/Orden visible y deshabilitado --- */}
         <div className="space-y-2">
           <Label>Orden (no editable)</Label>
           <Input
@@ -156,7 +154,6 @@ export function TarjetaSeccion({
           />
         </div>
 
-        {/* --- Selector de Archivo --- */}
         <div className="space-y-2 md:col-span-2">
           <Label>Imagen de la Sección</Label>
           <Input
@@ -168,12 +165,11 @@ export function TarjetaSeccion({
         </div>
       </div>
 
-      {/* --- Vista Previa de Imagen --- */}
       {seccion.image && (
         <div className="mt-4">
           <Label>Vista Previa</Label>
           <img
-            src={seccion.image} // La fuente es el string base64
+            src={seccion.image} // La fuente es el string base64 o una URL
             alt={seccion.imageAlt}
             className="mt-2 w-full max-w-md h-48 object-cover rounded-lg border"
           />

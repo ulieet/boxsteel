@@ -6,18 +6,20 @@ import { EncabezadoAdmin } from "@/app/admin/components/header-admin"
 import { ListaSecciones } from "@/app/admin/components/lista-secciones"
 import { ConfiguracionSitio } from "@/app/admin/components/configuracion"
 import { ListaProyectos } from "@/app/admin/components/lista-proyectos"
+import { ListaCarousel } from "@/app/admin/components/lista-carousel" 
 
 import featuresData from "@/lib/data/features.json"
 import projectsData from "@/lib/data/proyects.json"
-const configData = require("@/lib/data/config.json") 
+import carouselData from "@/lib/data/carousel.json" 
+import configData from "@/lib/data/config.json" 
 
 import type {
   FeatureData,
   Proyecto,
   ConfiguracionSitioData,
+  CarouselSlide, 
 } from "@/app/admin/components/types"
 
-// IMPORTANTE: Definido fuera del componente para que sea una constante de referencia
 const defaultConfiguracion: ConfiguracionSitioData = {
   fuentePrincipal: "Inter",
   fuenteTitulos: "Inter",
@@ -32,6 +34,7 @@ export default function PaginaAdmin() {
   const [proyectos, setProyectos] = useState<Proyecto[]>([])
   const [configuracion, setConfiguracion] =
     useState<ConfiguracionSitioData>(defaultConfiguracion)
+  const [carouselSlides, setCarouselSlides] = useState<CarouselSlide[]>([]) 
 
   useEffect(() => {
     // Carga inicial de datos JSON y localStorage
@@ -39,6 +42,7 @@ export default function PaginaAdmin() {
       const savedFeatures = localStorage.getItem("cms_features")
       const savedProjects = localStorage.getItem("cms_projects")
       const savedSettings = localStorage.getItem("cms_settings")
+      const savedCarousel = localStorage.getItem("cms_carousel") 
 
       setSecciones(
         savedFeatures ? JSON.parse(savedFeatures) : (featuresData as FeatureData[])
@@ -46,20 +50,24 @@ export default function PaginaAdmin() {
       setProyectos(
         savedProjects ? JSON.parse(savedProjects) : (projectsData as Proyecto[])
       )
+     
+      setCarouselSlides(
+        savedCarousel ? JSON.parse(savedCarousel) : (carouselData as CarouselSlide[])
+      )
       
       const jsonConfig = configData || {};
       const initialState = { ...defaultConfiguracion, ...jsonConfig }; 
       
       setConfiguracion(
-        savedSettings ? JSON.parse(savedSettings) : initialState // LocalStorage (cambios sin guardar) tiene prioridad
+        savedSettings ? JSON.parse(savedSettings) : initialState 
       )
 
     } catch (e) {
       console.error("Error al parsear localStorage, usando datos de JSON:", e)
-      // Fallback a los datos de los archivos JSON importados
+//Fallback a JSON
       setSecciones(featuresData as FeatureData[])
       setProyectos(projectsData as Proyecto[])
-      // Combinamos el default del código con el del JSON
+      setCarouselSlides(carouselData as CarouselSlide[]) 
       setConfiguracion({ ...defaultConfiguracion, ...(configData || {}) })
     }
     
@@ -77,6 +85,7 @@ export default function PaginaAdmin() {
           secciones: secciones,
           proyectos: proyectos,
           configuracion: configuracion,
+          carousel: carouselSlides, 
         }),
       })
 
@@ -90,6 +99,7 @@ export default function PaginaAdmin() {
       localStorage.removeItem("cms_features")
       localStorage.removeItem("cms_projects")
       localStorage.removeItem("cms_settings")
+      localStorage.removeItem("cms_carousel") // Limpia localStorage
 
       setHayCambios(false)
       alert(
@@ -103,8 +113,9 @@ export default function PaginaAdmin() {
 
   const alExportar = () => {
     try {
+
       const dataStr = JSON.stringify(
-        { secciones, proyectos, configuracion },
+        { secciones, proyectos, configuracion, carouselSlides },
         null,
         2
       )
@@ -124,7 +135,6 @@ export default function PaginaAdmin() {
   }
 
 
-
   const cambiarConfiguracion = (
     campo: keyof ConfiguracionSitioData,
     valor: string | boolean
@@ -140,13 +150,12 @@ export default function PaginaAdmin() {
     }
   }
 
-
   const agregarSeccion = () => {
     const nueva: FeatureData = {
       eyebrow: "NUEVO",
       title: "Título de la sección",
       description: ["Descripción de la sección"],
-      image: "",
+      image: "", 
       imageAlt: "Imagen",
       imagePosition: "right",
     }
@@ -186,7 +195,6 @@ export default function PaginaAdmin() {
     setHayCambios(true)
   }
 
-
   const handleAgregarProyecto = (nuevoProyecto: Proyecto) => {
     setProyectos((prev) => [nuevoProyecto, ...prev])
     setHayCambios(true)
@@ -225,6 +233,60 @@ export default function PaginaAdmin() {
   }
 
 
+  const agregarSlide = () => {
+    const nuevoSlide: CarouselSlide = { src: "", alt: "Nuevo Slide" }
+    setCarouselSlides((prev) => [...prev, nuevoSlide])
+    setHayCambios(true)
+  }
+
+  const eliminarSlide = (i: number) => {
+    if (confirm("¿Eliminar este slide?")) {
+      setCarouselSlides((prev) => prev.filter((_, idx) => idx !== i))
+      setHayCambios(true)
+    }
+  }
+
+  const actualizarSlide = (
+    i: number,
+    campo: keyof CarouselSlide,
+    valor: string
+  ) => {
+    setCarouselSlides((prev) => {
+      const copia = [...prev]
+      copia[i] = { ...copia[i], [campo]: valor }
+      return copia
+    })
+    setHayCambios(true)
+  }
+  
+  // Esta función convierte la imagen a base64 y la pone en el estado
+  const subirImagenSlide = (i: number, file: File) => {
+     const reader = new FileReader()
+      reader.onloadend = () => {
+        const base64String = reader.result as string
+        setCarouselSlides((prev) => {
+          const copia = [...prev]
+          copia[i] = { ...copia[i], src: base64String }
+          return copia
+        })
+        setHayCambios(true)
+      }
+      reader.readAsDataURL(file)
+  }
+
+  const moverSlide = (i: number, dir: "up" | "down") => {
+    if ((dir === "up" && i === 0) || (dir === "down" && i === carouselSlides.length - 1))
+      return
+    setCarouselSlides((prev) => {
+      const nuevo = [...prev]
+      const j = dir === "up" ? i - 1 : i + 1
+      ;[nuevo[i], nuevo[j]] = [nuevo[j], nuevo[i]]
+      return nuevo
+    })
+    setHayCambios(true)
+  }
+
+
   if (!isClient) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -242,12 +304,24 @@ export default function PaginaAdmin() {
       />
 
       <main className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="proyectos" className="space-y-6">
+        <Tabs defaultValue="carousel" className="space-y-6">
           <TabsList>
-            <TabsTrigger value="secciones">Secciones Inicio(Landing)</TabsTrigger>
+            <TabsTrigger value="carousel">Carrusel Principal</TabsTrigger> 
+            <TabsTrigger value="secciones">Secciones Inicio</TabsTrigger>
             <TabsTrigger value="proyectos">Proyectos</TabsTrigger>
             <TabsTrigger value="configuracion">Configuración</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="carousel">
+            <ListaCarousel
+              slides={carouselSlides}
+              alAgregar={agregarSlide}
+              alEliminar={eliminarSlide}
+              alActualizar={actualizarSlide}
+              alMover={moverSlide}
+              alSubirImagen={subirImagenSlide}
+            />
+          </TabsContent>
 
           <TabsContent value="secciones">
             <ListaSecciones
