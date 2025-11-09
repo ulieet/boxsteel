@@ -68,6 +68,7 @@ export function ModalCarousel({ onGuardar }: ModalCarouselProps) {
         {slide.src && (
           <div className="mt-4">
             <Label>Vista Previa</Label>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={slide.src}
               alt="Vista previa"

@@ -1,5 +1,5 @@
 import TarjetaProyecto from "@/app/proyectos/components/proyect-card"
-import projectsData from "@/lib/data/proyects.json"
+import projectsData from "@/lib/data/proyectos.json"
 
 interface Proyecto {
   id: string

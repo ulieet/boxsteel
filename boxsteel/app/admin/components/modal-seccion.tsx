@@ -166,6 +166,7 @@ export function ModalSeccion({ onGuardar }: ModalSeccionProps) {
              {seccion.image && (
                 <div className="mt-4">
                 <Label>Vista Previa</Label>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src={seccion.image}
                     alt="Vista previa"

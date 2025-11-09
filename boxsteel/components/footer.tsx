@@ -1,7 +1,24 @@
 import Link from "next/link"
 import { Linkedin, Instagram, Mail, Phone, MapPin, MessageCircle } from "lucide-react"
+import configData from "@/lib/data/datos-contacto.json" 
 
 export function Footer() {
+  const { 
+    whatsappPrefijo,
+    whatsappNumero, 
+    whatsappDisplayFooter, 
+    email, 
+    telefonoPrefijo,
+    telefonoNumero, 
+    telefonoDisplay, 
+    linkedinUrl, 
+    instagramUrl,
+    ubicacion1_titulo,
+    ubicacion1_direccion,
+    ubicacion2_titulo,
+    ubicacion2_direccion
+  } = configData;
+
   return (
     <footer className="bg-foreground text-white py-16 px-6 border-t border-slate-600">
       <div className="max-w-6xl mx-auto">
@@ -18,10 +35,10 @@ export function Footer() {
               Ubicación
             </h4>
             <div className="space-y-2 text-sm text-slate-200">
-              <p className="font-medium text-teal-300">La Plata</p>
-              <p>Calle 54 nro 582</p>
-              <p className="font-medium text-teal-300 mt-3">CABA</p>
-              <p>Bulnes 1250, OF 0101</p>
+              <p className="font-medium text-teal-300">{ubicacion1_titulo}</p>
+              <p>{ubicacion1_direccion}</p>
+              <p className="font-medium text-teal-300 mt-3">{ubicacion2_titulo}</p>
+              <p>{ubicacion2_direccion}</p>
             </div>
           </div>
 
@@ -29,27 +46,29 @@ export function Footer() {
             <h4 className="font-semibold text-white">Contacto</h4>
             <div className="space-y-3 text-sm">
               <a
-                href="https://wa.me/542213147323"
+                href={`${whatsappPrefijo}${whatsappNumero}`} 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-3 text-white hover:text-teal-300 transition p-2 bg-teal-600 hover:bg-teal-500 rounded"
               >
                 <MessageCircle className="w-4 h-4" />
-                2213147323
+                {whatsappDisplayFooter} 
               </a>
 
               <a
-                href="mailto:info@boxsteelframe.com.ar"
+                href={`mailto:${email}`} 
                 className="flex items-center gap-3 text-white hover:text-teal-300 transition p-2 bg-teal-600 hover:bg-teal-500 rounded"
               >
                 <Mail className="w-4 h-4" />
-                info@boxsteelframe.com.ar
+                {email} 
               </a>
 
               <a
-                href="tel:+541175637396"
+                href={`${telefonoPrefijo}${telefonoNumero}`} 
                 className="flex items-center gap-3 text-white hover:text-teal-300 transition p-2 bg-teal-600 hover:bg-teal-500 rounded"
               >
                 <Phone className="w-4 h-4" />
-                (011) 7563 7396
+                {telefonoDisplay} 
               </a>
             </div>
           </div>
@@ -58,14 +77,18 @@ export function Footer() {
             <h4 className="font-semibold text-white">Síguenos</h4>
             <div className="flex gap-3">
               <a
-                href="#linkedin"
+                href={linkedinUrl} 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-teal-600 text-white flex items-center justify-center hover:bg-teal-500 transition"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
-                href="#instagram"
+                href={instagramUrl} 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-teal-600 text-white flex items-center justify-center hover:bg-teal-500 transition"
                 aria-label="Instagram"
               >

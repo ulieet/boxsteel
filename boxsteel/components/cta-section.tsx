@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { MessageCircle } from "lucide-react"
+import configData from "@/lib/data/datos-contacto.json" 
 
 export function CTASection() {
   return (
@@ -27,7 +28,7 @@ export function CTASection() {
                   className="bg-background text-foreground hover:bg-background/90 font-medium text-base group"
                   asChild
                 >
-                  <a href="https://wa.me/5492213147323" target="_blank" rel="noopener noreferrer">
+                  <a href={`${configData.whatsappPrefijo}${configData.whatsappNumero}`} target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="mr-2 h-5 w-5" />
                     Consultar
                   </a>
@@ -42,7 +43,7 @@ export function CTASection() {
               </div>
             </div>
 
-            <div className="relative aspect-4/3 rounded-xl overflow-hidden hidden lg:block">
+            <div className="relative aspect-[4/3] rounded-xl overflow-hidden hidden lg:block">
               <Image src="/images/house-keys.png" alt="Entrega de llaves" fill className="object-cover" />
             </div>
           </div>

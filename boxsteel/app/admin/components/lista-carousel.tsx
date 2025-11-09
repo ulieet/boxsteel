@@ -49,7 +49,6 @@ export function ListaCarousel({
   }
 
   return (
-    // El div principal ya NO es el Dialog
     <div className="space-y-6">
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <div className="flex items-center justify-between">
@@ -66,13 +65,12 @@ export function ListaCarousel({
         <DialogContent className="max-w-lg">
           <ModalCarousel onGuardar={handleGuardarModal} />
         </DialogContent>
-      </Dialog> {/* El Dialog se cierra aquí */}
+      </Dialog> 
 
       <p className="text-sm text-muted-foreground">
         Administra las imágenes que aparecen en el carrusel principal de la página de inicio.
       </p>
 
-      {/* La lista de slides va FUERA del Dialog */}
       <div className="space-y-4">
         {slides.map((slide, i) => (
           <Card key={i} className="p-6">
@@ -125,6 +123,7 @@ export function ListaCarousel({
             {slide.src && (
               <div className="mt-4">
                 <Label>Vista Previa</Label>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={slide.src.startsWith('data:') ? slide.src : (slide.src || "/placeholder.svg")}
                   alt={slide.alt || "Vista previa"}

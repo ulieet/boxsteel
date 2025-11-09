@@ -1,5 +1,6 @@
 {
   "fuentePrincipal": "Inter",
   "fuenteTitulos": "Inter",
-  "colorAcento": "#14b8a6"
+  "colorAcento": "#14b8a6",
+  "logoUrl": "/images/box-logo2.png"
 }

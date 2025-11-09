@@ -1,3 +1,5 @@
+import headerData from "@/lib/data/proyectos-header.json"; 
+
 export default function ProyectosHeader() {
   return (
     <section className="py-16 md:py-24 relative overflow-hidden bg-neutral-600">
@@ -15,13 +17,12 @@ export default function ProyectosHeader() {
           <div className="inline-block mb-6">
             <div className="bg-accent px-8 py-3 transform -skew-x-6">
                <h1 className="text-4xl md:text-6xl font-bold text-accent-foreground transform skew-x-6">
-                NUESTROS PROYECTOS
+                {headerData.titulo} 
               </h1>
             </div>
           </div>
           <p className="text-gray-300 text-lg md:text-xl max-w-3xl leading-relaxed">
-            Te mostramos como creamos  obras, destacando su rapidez de ejecución, bajo mantenimiento. Cada proyecto refleja nuestro compromiso con la ingeniería, 
-            la durabilidad y la innovación constructiva.
+            {headerData.descripcion} 
           </p>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
+import configData from "@/lib/data/datos-contacto.json" 
 
 interface WhatsappFloatingButtonProps {
   message?: string
@@ -7,7 +8,7 @@ interface WhatsappFloatingButtonProps {
 }
 
 export default function WhatsappFloatingButton({message, className }: WhatsappFloatingButtonProps) {
-  const whatsappLink = `https://wa.me/${5492213147323}${message ? `?text=${encodeURIComponent(message)}` : ""}`
+  const whatsappLink = `${configData.whatsappPrefijo}${configData.whatsappNumero}${message ? `?text=${encodeURIComponent(message)}` : ""}`
 
   return (
     <a

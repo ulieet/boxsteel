@@ -23,9 +23,31 @@ export interface ConfiguracionSitioData {
   fuentePrincipal: string
   fuenteTitulos: string
   colorAcento: string
+  logoUrl: string 
 }
 
 export interface CarouselSlide {
   src: string; 
   alt: string; 
+}
+
+export interface ProyectosHeaderData {
+  titulo: string
+  descripcion: string
+}
+
+export interface DatosContactoData {
+  whatsappPrefijo: string
+  whatsappNumero: string
+  whatsappDisplayFooter: string
+  email: string
+  telefonoPrefijo: string
+  telefonoNumero: string
+  telefonoDisplay: string
+  linkedinUrl: string
+  instagramUrl: string
+  ubicacion1_titulo: string
+  ubicacion1_direccion: string
+  ubicacion2_titulo: string
+  ubicacion2_direccion: string
 }

@@ -4,6 +4,18 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react"; 
 import { usePathname, useRouter } from "next/navigation"; 
+import Link from "next/link"; 
+import datosContacto from "@/lib/data/datos-contacto.json"; 
+import configData from "@/lib/data/config.json"; 
+import { Menu } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetClose,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 
 export function Navbar() {
   const router = useRouter();
@@ -11,7 +23,7 @@ export function Navbar() {
   const headerRef = useRef<HTMLElement>(null); 
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault(); // Hice un prevent para prevenir la navegación brusca
+    e.preventDefault(); 
 
     const url = new URL(href, window.location.origin);
     const targetHash = url.hash;    
@@ -52,15 +64,16 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           <a
             href="#top"
-            onClick={(e) => handleScroll(e, "#top")}
+            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleScroll(e, "#top")}
             className="flex items-center gap-2"
           >
             <Image
-              src="/images/box-logo2.png"
+              src={configData.logoUrl} 
               alt="Box Steel Frame"
               width={50}
               height={50}
               className="w-12 h-10 rounded-lg"
+              priority // Carga prioritaria para el logo
             />
             <div className="flex flex-col">
               <span className="font-bold text-base lg:text-lg text-foreground hover:text-accent transition-colors">
@@ -74,51 +87,129 @@ export function Navbar() {
 
          
           <nav className="hidden md:flex items-center gap-6">
-            <a 
+            <Link 
               href="/" 
               onClick={(e) => handleScroll(e, "/")}
               className="text-base font-medium text-foreground hover:text-accent transition-colors"
             >
               Inicio
-            </a>
+            </Link>
           
-            <a
+            <Link
               href="/#beneficios"
               onClick={(e) => handleScroll(e, "/#beneficios")}
               className="text-base font-medium text-foreground hover:text-accent transition-colors"
             >
               Beneficios
-            </a>
-            <a
+            </Link>
+            <Link
               href="/#contacto"
               onClick={(e) => handleScroll(e, "/#contacto")}
               className="text-base font-medium text-foreground hover:text-accent transition-colors"
             >
               Contacto
-            </a>
+            </Link>
 
-              <a 
+              <Link 
               href="/proyectos" 
               onClick={(e) => handleScroll(e, "/proyectos")}
               className="text-base font-medium text-foreground hover:text-accent transition-colors"
             >
               Proyectos
-            </a>
+            </Link>
           </nav>
 
           <Button
             size="sm"
-            className="bg-accent hover:bg-accent/90 text-accent-foreground font-medium"
+            className="hidden md:inline-flex bg-accent hover:bg-accent/90 text-accent-foreground font-medium"
             asChild
           >
             <a
-              href="https://wa.me/5492213147323"
+              href={`${datosContacto.whatsappPrefijo}${datosContacto.whatsappNumero}`}
               target="_blank"
               rel="noopener noreferrer"
             >
               Consultar presupuesto
             </a>
           </Button>
+
+          {/* Menú Móvil con Sheet */}
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Abrir menú</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent 
+              side="right" 
+              className="data-[state=open]:duration-300"
+            >
+              <SheetTitle className="sr-only">Menú de Navegación</SheetTitle>
+              <SheetDescription className="sr-only">
+                Enlaces principales del sitio y botón de presupuesto.
+              </SheetDescription>
+              
+              <nav className="flex flex-col gap-6 pt-8">
+                <SheetClose asChild>
+                  <Link 
+                    href="/" 
+                    onClick={(e) => handleScroll(e, "/")}
+                    className="text-xl font-medium text-foreground hover:text-accent transition-colors pl-2"
+                  >
+                    Inicio
+                  </Link>
+                </SheetClose>
+              
+                <SheetClose asChild>
+                  <Link
+                    href="/#beneficios"
+                    onClick={(e) => handleScroll(e, "/#beneficios")}
+                    className="text-xl font-medium text-foreground hover:text-accent transition-colors pl-2"
+                  >
+                    Beneficios
+                  </Link>
+                </SheetClose>
+
+                <SheetClose asChild>
+                  <Link
+                    href="/#contacto"
+                    onClick={(e) => handleScroll(e, "/#contacto")}
+                    className="text-xl font-medium text-foreground hover:text-accent transition-colors pl-2"
+                  >
+                    Contacto
+                  </Link>
+                </SheetClose>
+
+                <SheetClose asChild>
+                  <Link 
+                    href="/proyectos" 
+                    onClick={(e) => handleScroll(e, "/proyectos")}
+                    className="text-xl font-medium text-foreground hover:text-accent transition-colors pl-2"
+                  >
+                    Proyectos
+                  </Link>
+                </SheetClose>
+
+                <SheetClose asChild>
+                  <Button
+                    size="lg"
+                    className="bg-accent hover:bg-accent/90 text-accent-foreground font-medium w-full mt-4"
+                    asChild
+                  >
+                    <a
+                      href={`${datosContacto.whatsappPrefijo}${datosContacto.whatsappNumero}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Consultar presupuesto
+                    </a>
+                  </Button>
+                </SheetClose>
+              </nav>
+            </SheetContent>
+          </Sheet>
+
         </div>
       </div>
     </header>

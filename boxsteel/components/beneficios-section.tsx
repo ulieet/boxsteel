@@ -1,4 +1,3 @@
-import { Arrow } from "@radix-ui/react-select"
 import Image from "next/image"
 import Link from "next/link"
 

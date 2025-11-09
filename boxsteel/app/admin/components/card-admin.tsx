@@ -19,7 +19,7 @@ interface TarjetaSeccionProps {
   seccion: FeatureData
   indice: number
   total: number
-  alActualizar: (indice: number, campo: keyof FeatureData, valor: any) => void
+  alActualizar: (indice: number, campo: keyof FeatureData, valor: string | string[]) => void
   alEliminar: (indice: number) => void
   alMover: (indice: number, direccion: "up" | "down") => void
 }
@@ -168,6 +168,7 @@ export function TarjetaSeccion({
       {seccion.image && (
         <div className="mt-4">
           <Label>Vista Previa</Label>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={seccion.image} // La fuente es el string base64 o una URL
             alt={seccion.imageAlt}

@@ -12,7 +12,7 @@ interface TarjetaProyectoProps {
   proyecto: Proyecto
   indice: number
   total: number
-  alActualizar: (indice: number, campo: keyof Proyecto, valor: any) => void
+  alActualizar: (indice: number, campo: keyof Proyecto, valor: string | string[]) => void
   alEliminar: (indice: number) => void
   alMover: (indice: number, direccion: "up" | "down") => void
 }
@@ -158,6 +158,7 @@ export function TarjetaProyecto({
             <div className="space-y-4">
               {proyecto.imagenes.map((imgSrc, imgIndex) => (
                 <div key={imgIndex} className="flex items-end gap-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={imgSrc || "/placeholder.svg"}
                     alt={`Preview ${imgIndex + 1}`}

@@ -6,6 +6,8 @@ import type {
   Proyecto,
   ConfiguracionSitioData,
   CarouselSlide, 
+  ProyectosHeaderData,
+  DatosContactoData,
 } from "@/app/admin/components/types"
 
 interface RequestBody {
@@ -13,9 +15,11 @@ interface RequestBody {
   proyectos?: Proyecto[]
   configuracion?: ConfiguracionSitioData
   carousel?: CarouselSlide[] 
+  proyectosHeader?: ProyectosHeaderData
+  datosContacto?: DatosContactoData
 }
 
-// Función para manejar el guardado de imágenes Base64
+// ... (La función saveBase64Image sigue igual)
 const saveBase64Image = (base64Data: string, relativePath: string): string => {
   if (!base64Data || !base64Data.startsWith("data:image")) {
     return base64Data 
@@ -43,13 +47,14 @@ const saveBase64Image = (base64Data: string, relativePath: string): string => {
   }
 };
 
+
 export async function POST(request: Request) {
   if (process.env.NODE_ENV === "production") {
   }
 
   try {
     const body: RequestBody = await request.json()
-    const { secciones, proyectos, configuracion, carousel } = body
+    const { secciones, proyectos, configuracion, carousel, proyectosHeader, datosContacto } = body
 
     const dataDir = path.join(process.cwd(), "lib", "data")
     if (!fs.existsSync(dataDir)) {
@@ -77,15 +82,21 @@ export async function POST(request: Request) {
       fs.writeFileSync(projectsPath, JSON.stringify(proyectosProcesados, null, 2), "utf8")
     }
 
+    // --- LÓGICA DE CONFIGURACIÓN MODIFICADA ---
     if (configuracion) {
-   
+      // Procesa el logoUrl (Base64 a URL) antes de guardar
+      const configProcesada = {
+        ...configuracion,
+        logoUrl: saveBase64Image(configuracion.logoUrl, "uploads"),
+      };
+      
       const configPath = path.join(dataDir, "config.json")
-      fs.writeFileSync(configPath, JSON.stringify(configuracion, null, 2), "utf8")
+      fs.writeFileSync(configPath, JSON.stringify(configProcesada, null, 2), "utf8")
     }
+    // --- FIN DE LÓGICA MODIFICADA ---
 
 
     if (carousel) {
-      // Procesa las imágenes (base64 a URL)
       const carouselProcesado = carousel.map(slide => ({
         ...slide,
         src: saveBase64Image(slide.src, "uploads"),
@@ -93,6 +104,16 @@ export async function POST(request: Request) {
       
       const carouselPath = path.join(dataDir, "carousel.json")
       fs.writeFileSync(carouselPath, JSON.stringify(carouselProcesado, null, 2), "utf8")
+    }
+
+    if (proyectosHeader) {
+      const proyectosHeaderPath = path.join(dataDir, "proyectos-header.json")
+      fs.writeFileSync(proyectosHeaderPath, JSON.stringify(proyectosHeader, null, 2), "utf8")
+    }
+
+    if (datosContacto) {
+      const datosContactoPath = path.join(dataDir, "datos-contacto.json")
+      fs.writeFileSync(datosContactoPath, JSON.stringify(datosContacto, null, 2), "utf8")
     }
 
 

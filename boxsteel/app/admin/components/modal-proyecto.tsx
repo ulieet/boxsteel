@@ -74,7 +74,6 @@ export function ModalProyecto({ onGuardar }: ModalProyectoProps) {
     const proyectoFinal: Proyecto = {
       ...proyecto,
       id: idGenerado,
-      // Filtramos las imágenes vacías antes de guardar
       imagenes: proyecto.imagenes.filter(img => img && img.startsWith("data:image")),
     }
     
@@ -87,13 +86,12 @@ export function ModalProyecto({ onGuardar }: ModalProyectoProps) {
       <DialogHeader>
         <DialogTitle>Agregar Nuevo Proyecto</DialogTitle>
         <DialogDescription>
-          Completa los datos del proyecto. Haz clic en "Guardar" al terminar.
-        </DialogDescription>
+  Completa los datos del proyecto. Haz clic en &quot;Guardar&quot; al terminar.
+</DialogDescription>
       </DialogHeader>
 
       <ScrollArea className="max-h-[70vh] pr-6">
         <div className="grid gap-4 py-4 md:grid-cols-2">
-          {/* Columna Izquierda */}
           <div className="space-y-4">
             <div className="space-y-2">
               <Label>Título</Label>
@@ -137,7 +135,6 @@ export function ModalProyecto({ onGuardar }: ModalProyectoProps) {
             </div>
           </div>
 
-          {/* Columna Derecha */}
           <div className="space-y-4">
             <div className="space-y-2">
               <Label>Descripción</Label>
@@ -149,12 +146,12 @@ export function ModalProyecto({ onGuardar }: ModalProyectoProps) {
               />
             </div>
 
-            {/* Gestión de Imágenes */}
             <div className="space-y-2">
               <Label>Imágenes</Label>
               <div className="space-y-4">
                 {proyecto.imagenes.map((imgSrc, imgIndex) => (
                   <div key={imgIndex} className="flex items-end gap-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={imgSrc || "/placeholder.svg"}
                       alt={`Preview ${imgIndex + 1}`}

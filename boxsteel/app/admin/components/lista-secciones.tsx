@@ -16,7 +16,7 @@ interface ListaSeccionesProps {
   secciones: FeatureData[]
   onSeccionAgregada: (nuevaSeccion: FeatureData) => void
   alEliminar: (indice: number) => void
-  alActualizar: (indice: number, campo: keyof FeatureData, valor: any) => void
+  alActualizar: (indice: number, campo: keyof FeatureData, valor: string | string[]) => void
   alMover: (indice: number, direccion: "up" | "down") => void
 }
 

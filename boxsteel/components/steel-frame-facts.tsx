@@ -26,15 +26,13 @@ export function DatosSteelFrame() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-4xl mx-auto overflow-x-hidden">
           
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-16 text-balance">
             <span className="text-foreground">¿Sabías esto del </span>
             
-            <span className="relative inline-block overflow-hidden">
+            <span className="relative inline-block overflow-hidden whitespace-nowrap">
               <span className="relative z-10 text-foreground px-3">steel frame</span>
               <span className="absolute inset-0 bg-accent -skew-x-2 rounded"></span>
-            </span>
-            
-            <span className="text-foreground">?</span>
+            </span><span className="text-foreground">?</span>
           </h2>
 
           <div className="grid sm:grid-cols-2 gap-8 md:gap-12">
