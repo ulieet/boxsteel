@@ -1,18 +1,5 @@
 [
   {
-    "id": "jared-santurio",
-    "titulo": "jared santurio",
-    "ubicacion": "la plata",
-    "cliente": "cl",
-    "año": "2023",
-    "descripcion": "asdsada",
-    "imagenes": [
-      "/uploads/img-1762644291939-506354098.jpeg",
-      "/uploads/img-1762644291940-272480511.jpeg"
-    ],
-    "categoria": "awda"
-  },
-  {
     "id": "city-bell",
     "titulo": "Ampliación de Vivienda",
     "ubicacion": "City Bell",
@@ -50,18 +37,5 @@
       "/proyectos/interior2.png"
     ],
     "categoria": "Exteriores"
-  },
-  {
-    "id": "ampliacion-dormitorio-ringuelet",
-    "titulo": "Ampliación Dormitorio y Vestidor",
-    "ubicacion": "Ringuelet",
-    "cliente": "Particular",
-    "año": "2023",
-    "descripcion": "Ampliación de dormitorio principal sobre losa existente, utilizando steel frame para una construcción rápida y limpia. Incluye diseño de vestidor a medida.",
-    "imagenes": [
-      "/proyectos/dormitorio1.png",
-      "/proyectos/dormitorio2.png"
-    ],
-    "categoria": "Residencial"
   }
 ]
