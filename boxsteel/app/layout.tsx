@@ -71,7 +71,7 @@ export default function RootLayout({
       className={`${principalFont.className} ${titulosFont.className}`} 
       style={styleVariables}
     >
-      <body className="antialiased">
+      <body className="antialiased ">
         <Navbar />
         <FloatingLogo />
         {children}

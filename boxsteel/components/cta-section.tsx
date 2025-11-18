@@ -6,7 +6,7 @@ import configData from "@/lib/data/datos-contacto.json"
 export function CTASection() {
   return (
     <section className="py-16 lg:py-10 bg-muted/30" id="contacto">
-      <div className="container mx-auto px-4 lg:px-8 mb-15">
+      <div className="container mx-auto px-4 lg:px-8 mb-3">
         <div className="relative bg-accent rounded-2xl lg:rounded-3xl overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <Image src="/images/house-keys.png" alt="Background" fill className="object-cover" />
