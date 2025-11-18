@@ -6,7 +6,7 @@ import configData from "@/lib/data/datos-contacto.json"
 export function CTASection() {
   return (
     <section className="py-16 lg:py-10 bg-muted/30" id="contacto">
-      <div className="container mx-auto px-4 lg:px-8 mb-50">
+      <div className="container mx-auto px-4 lg:px-8 mb-15">
         <div className="relative bg-accent rounded-2xl lg:rounded-3xl overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <Image src="/images/house-keys.png" alt="Background" fill className="object-cover" />
@@ -35,12 +35,6 @@ export function CTASection() {
                 </Button>
               </div>
 
-              <div className="pt-4">
-                <p className="text-sm text-accent-foreground/80">
-                  <span className="font-semibold">Promoción especial:</span> Si contratás en Mayo, te bonificamos el
-                  proyecto
-                </p>
-              </div>
             </div>
 
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden hidden lg:block">

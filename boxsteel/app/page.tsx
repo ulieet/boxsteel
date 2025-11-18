@@ -4,6 +4,7 @@ import { CTASection } from "@/components/cta-section";
 import { DatosSteelFrame} from "@/components/steel-frame-facts";
 import CarruselPrincipal from "@/components/carrousel-slide";
 import  FeatureSection  from "@/components/feature-images"
+import { ContactForm } from "@/components/contact-form";
 
 
 
@@ -16,6 +17,7 @@ export default function Home() {
       <SeccionBeneficios/>
       <FeatureSection />
       <CTASection/>
+      <ContactForm /> 
       </main>
    
   );
