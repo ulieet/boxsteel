@@ -1,16 +1,28 @@
 import Link from "next/link"
-import { Linkedin, Instagram, Mail, Phone, MapPin, MessageCircle } from "lucide-react"
+import { Linkedin, Instagram, Mail, MapPin, MessageCircle } from "lucide-react"
 import configData from "@/lib/data/datos-contacto.json" 
+
+// Función para dar formato visual específico +54 9 221 etc etc
+const formatearNumero = (numero: string) => {
+  if (!numero) return "";
+  const limpio = numero.replace(/[^0-9]/g, '');
+
+  if (limpio.startsWith("549")) {
+
+        if (limpio.length >= 10) {
+       return `+${limpio.slice(0,2)} ${limpio.slice(2,3)} ${limpio.slice(3,6)} ${limpio.slice(6,9)} ${limpio.slice(9)}`;
+    }
+  }
+
+  // Fallback genérico: agrupar de a 4
+  return limpio.replace(/(\d{4})(?=\d)/g, '$1 ');
+}
 
 export function Footer() {
   const { 
     whatsappPrefijo,
     whatsappNumero, 
-    whatsappDisplayFooter, 
     email, 
-    telefonoPrefijo,
-    telefonoNumero, 
-    telefonoDisplay, 
     linkedinUrl, 
     instagramUrl,
     ubicacion1_titulo,
@@ -52,7 +64,8 @@ export function Footer() {
                 className="flex items-center gap-3 text-white hover:text-teal-300 transition p-2 bg-teal-600 hover:bg-teal-500 rounded"
               >
                 <MessageCircle className="w-4 h-4" />
-                {whatsappDisplayFooter} 
+                {/* Se muestra con el formato +54 9 221 ... */}
+                {formatearNumero(whatsappNumero)} 
               </a>
 
               <a
@@ -61,14 +74,6 @@ export function Footer() {
               >
                 <Mail className="w-4 h-4" />
                 {email} 
-              </a>
-
-              <a
-                href={`${telefonoPrefijo}${telefonoNumero}`} 
-                className="flex items-center gap-3 text-white hover:text-teal-300 transition p-2 bg-teal-600 hover:bg-teal-500 rounded"
-              >
-                <Phone className="w-4 h-4" />
-                {telefonoDisplay} 
               </a>
             </div>
           </div>

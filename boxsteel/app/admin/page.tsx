@@ -30,18 +30,14 @@ const defaultConfiguracion: ConfiguracionSitioData = {
   fuentePrincipal: "Inter",
   fuenteTitulos: "Inter",
   colorAcento: "#14b8a6", 
-  logoUrl: "/images/box-logo2.png" // <-- CAMPO AÑADIDO
+  logoUrl: "/images/box-logo2.png" 
 }
 
-// Configuración de Contacto
+// Configuración de Contacto (ACTUALIZADA: Sin campos de teléfono)
 const defaultDatosContacto: DatosContactoData = {
   whatsappPrefijo: "https://wa.me/",
   whatsappNumero: "5492213147323",
-  whatsappDisplayFooter: "221 314 7323",
   email: "info@boxsteelframe.com.ar",
-  telefonoPrefijo: "tel:",
-  telefonoNumero: "+541175637396",
-  telefonoDisplay: "(011) 7563 7396",
   linkedinUrl: "https://www.linkedin.com/",
   instagramUrl: "https://www.instagram.com/",
   ubicacion1_titulo: "La Plata",

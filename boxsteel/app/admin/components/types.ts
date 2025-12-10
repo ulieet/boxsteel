@@ -3,7 +3,7 @@ export interface FeatureData {
   title: string
   subtitle?: string
   description: string[] | string
-  image: string //string base64 (data:image/...) o una URL
+  image: string
   imageAlt: string
   imagePosition: "left" | "right"
 }
@@ -39,11 +39,8 @@ export interface ProyectosHeaderData {
 export interface DatosContactoData {
   whatsappPrefijo: string
   whatsappNumero: string
-  whatsappDisplayFooter: string
+  // Eliminamos whatsappDisplayFooter y los campos de teléfono
   email: string
-  telefonoPrefijo: string
-  telefonoNumero: string
-  telefonoDisplay: string
   linkedinUrl: string
   instagramUrl: string
   ubicacion1_titulo: string
