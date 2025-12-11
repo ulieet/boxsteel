@@ -39,7 +39,7 @@ export interface ProyectosHeaderData {
 export interface DatosContactoData {
   whatsappPrefijo: string
   whatsappNumero: string
-  // Eliminamos whatsappDisplayFooter y los campos de teléfono
+  whatsappNumero2: string // 
   email: string
   linkedinUrl: string
   instagramUrl: string

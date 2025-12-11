@@ -1,11 +1,12 @@
 {
   "whatsappPrefijo": "https://wa.me/",
   "whatsappNumero": "5492213147323",
+  "whatsappNumero2": "5492216330505",
   "email": "info@boxsteelframe.com.ar",
-  "linkedinUrl": "https://www.linkedin.com/",
+  "linkedinUrl": "https://www.instagram.com/",
   "instagramUrl": "https://www.instagram.com/",
   "ubicacion1_titulo": "La Plata",
   "ubicacion1_direccion": "Calle 54 nro 582",
-  "ubicacion2_titulo": "CABA",
-  "ubicacion2_direccion": "Bulnes 1250, OF 0101"
+  "ubicacion2_titulo": "",
+  "ubicacion2_direccion": ""
 }

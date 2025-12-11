@@ -19,17 +19,16 @@ export function SeccionIntro() {
           </h1>
       
           <div className="flex justify-center">
-            <div className="bg-white rounded-lg shadow-lg p-4 flex items-center justify-center 
-     w-28 h-28 md:w-32 md:h-30">
-  <Image
-    src={datos.icono}
-    alt="Logo"
-    width={100}
-    height={100}
-    className="object-contain"
-    priority
-  />
-</div>
+             <div className="bg-white rounded-lg shadow-lg p-4 flex items-center justify-center w-20 h-20 md:w-24 md:h-24">
+              <Image
+                src={datos.icono}
+                alt="Logo Box Steel Frame"
+                width={80} 
+                height={80} 
+                className="object-contain" 
+                priority
+              />
+            </div>
 
           </div>
 

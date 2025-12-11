@@ -34,7 +34,7 @@ export function SeccionBeneficios() {
 
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           <div className="relative aspect-4/3 rounded-2xl overflow-hidden order-2 lg:order-1">
-            <Image
+            <Image  
               src={datosExtra.imagenSrc}
               alt={datosExtra.imagenAlt}
               fill

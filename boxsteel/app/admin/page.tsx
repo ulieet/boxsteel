@@ -33,10 +33,11 @@ const defaultConfiguracion: ConfiguracionSitioData = {
   logoUrl: "/images/box-logo2.png" 
 }
 
-// Configuración de Contacto (ACTUALIZADA: Sin campos de teléfono)
+// Configuración de Contacto
 const defaultDatosContacto: DatosContactoData = {
   whatsappPrefijo: "https://wa.me/",
   whatsappNumero: "5492213147323",
+  whatsappNumero2: "", 
   email: "info@boxsteelframe.com.ar",
   linkedinUrl: "https://www.linkedin.com/",
   instagramUrl: "https://www.instagram.com/",
@@ -112,6 +113,24 @@ export default function PaginaAdmin() {
   }, [])
 
   const guardarCambios = async () => {
+    const validarFormatoWsp = (num: string) => {
+      const limpio = num.replace(/[^0-9]/g, '');
+      return limpio.startsWith("549") && limpio.length >= 12;
+    };
+
+    if (!validarFormatoWsp(datosContacto.whatsappNumero)) {
+      alert("⚠️ Error: El WhatsApp Principal debe comenzar con '549' y tener al menos 12 dígitos (Ej: 5492213147323) para que se visualice correctamente.");
+      return; 
+    }
+
+    if (datosContacto.whatsappNumero2 && datosContacto.whatsappNumero2.trim() !== "") {
+      if (!validarFormatoWsp(datosContacto.whatsappNumero2)) {
+        alert("⚠️ Error: El WhatsApp Secundario debe comenzar con '549' y tener al menos 12 dígitos.");
+        return; 
+      }
+    }
+    
+
     try {
       const respuesta = await fetch("/api/guardar-datos", {
         method: "POST",

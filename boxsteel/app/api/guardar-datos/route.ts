@@ -19,7 +19,6 @@ interface RequestBody {
   datosContacto?: DatosContactoData
 }
 
-// ... (La función saveBase64Image sigue igual)
 const saveBase64Image = (base64Data: string, relativePath: string): string => {
   if (!base64Data || !base64Data.startsWith("data:image")) {
     return base64Data 
@@ -82,7 +81,7 @@ export async function POST(request: Request) {
       fs.writeFileSync(projectsPath, JSON.stringify(proyectosProcesados, null, 2), "utf8")
     }
 
-    // --- LÓGICA DE CONFIGURACIÓN MODIFICADA ---
+    // --- LÓGICA DE CONFIGURACIÓN ---
     if (configuracion) {
       // Procesa el logoUrl (Base64 a URL) antes de guardar
       const configProcesada = {
@@ -93,7 +92,7 @@ export async function POST(request: Request) {
       const configPath = path.join(dataDir, "config.json")
       fs.writeFileSync(configPath, JSON.stringify(configProcesada, null, 2), "utf8")
     }
-    // --- FIN DE LÓGICA MODIFICADA ---
+   
 
 
     if (carousel) {
